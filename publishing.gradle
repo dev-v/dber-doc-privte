@@ -1,0 +1,23 @@
+apply plugin: 'maven'
+apply plugin: 'maven-publish'  
+apply plugin: "java-gradle-plugin"
+
+def isSnapshot = "${project.version}"?.endsWith("-SNAPSHOT")
+
+def maven_local_path ='http://localhost:8081/artifactory/lib-local'  
+
+uploadArchives {  
+    repositories {  
+        mavenDeployer {  
+            repository(url:maven_local_path ){  
+                authentication(userName: "user", password:"pass")  
+            }  
+            pom.project {  
+                groupId "${project.group}:${project.name}"  
+                artifactId "${project.name}"  
+                version "${project.version}"  
+                packaging "${project.group}:${project.name}" 
+            }  
+        }  
+    }  
+}
