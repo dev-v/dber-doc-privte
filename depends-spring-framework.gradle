@@ -1,0 +1,8 @@
+dependencies {
+    compile "org.springframework:spring-tx:${springVersion}",
+			"org.springframework:spring-jdbc:${springVersion}",
+			"org.springframework:spring-context-support:${springVersion}"
+
+	testCompile "org.springframework:spring-test:${springVersion}"
+	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
+}

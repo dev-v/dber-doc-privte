@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--设置log4j2的自身log级别为debug -->
+<configuration status="debug" monitorInterval="30" strict="true">
+	<Properties>
+		<property name="log_pattern">
+			%d{yyyy-MM-dd HH:mm:ss} [%t] [%c{1}.%M()] %-5level - %msg%xEx%n
+			<!-- %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n -->
+		</property>
+		<property name="log_path">
+			logs/
+		</property>
+		<property name="project_name">
+			dber
+		</property>
+		<property name="log_file_name">
+			${project_name}.log
+		</property>
+		<property name="rolling_log_file_name">
+			${project_name}-%d{yyyy-MM-dd}-%i.log.gz
+		</property>
+		<property name="error_log_file_name">
+			${project_name}_error.log
+		</property>
+		<property name="error_rolling_log_file_name">
+			${project_name}-%d{yyyy-MM-dd}-%i.log.gz
+		</property>
+		<property name="every_file_size">10MB</property><!-- 日志切割的最小单位 -->
+		<property name="output_log_level">debug</property><!-- 日志输出级别 -->
+	</Properties>
+
+	<Appenders>
+		<!--这个输出控制台的配置 -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+			<ThresholdFilter level="trace" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout pattern="${log_pattern}" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<!-- 3rdparty Loggers -->
+		<logger name="org.springframework.core" level="debug">
+		</logger>
+
+		<!--建立一个默认的root的logger，需要在root的level中指定输出的级别， -->
+		<root level="${output_log_level}">
+			<appender-ref ref="Console" />
+		</root>
+	</Loggers>
+</configuration>

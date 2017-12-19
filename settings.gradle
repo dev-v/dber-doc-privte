@@ -1,1 +1,3 @@
 rootProject.name = 'dber'
+
+include 'dber-service-api'
