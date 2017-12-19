@@ -4,5 +4,4 @@ dependencies {
 			"org.springframework:spring-context-support:${springVersion}"
 
 	testCompile "org.springframework:spring-test:${springVersion}"
-	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 }

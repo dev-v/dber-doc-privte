@@ -6,46 +6,40 @@ buildscript {
 	    }
 	    
 	    maven {
-	      url "https://plugins.gradle.org/m2/"
+	        url 'http://192.168.120.3:8081/nexus/repository/dber/'
 	    }
 	    
 	    maven {
-	      url "http://maven.oschina.net/content/groups/public/"
+	      url "https://plugins.gradle.org/m2/"
 	    }
-		
-	    jcenter()
 	    
-		mavenCentral()
 	}
     
-    dependencies {
-    }
 }
 
 allprojects {
 	
     tasks.withType(AbstractCompile) each { it.options.encoding = encoding }
     tasks.withType(GroovyCompile) each { it.groovyOptions.encoding = encoding }
-    
-	repositories {
-	
+
+    repositories {
 	    maven {
 	        url 'http://maven.aliyun.com/nexus/content/groups/public'
+	    }
+	    
+	    maven {
+	        url 'http://192.168.120.3:8081/nexus/repository/dber/'
 	    }
 	    
 	    maven {
 	      url "https://plugins.gradle.org/m2/"
 	    }
 		
-	    jcenter()
-	    
-		mavenCentral()
 	}
-
+    
 	apply plugin: 'groovy'
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
-	apply plugin: 'idea'
 	apply plugin: 'maven'
 	
     dependencies {
@@ -57,6 +51,8 @@ allprojects {
 		testCompile 'junit:junit:4.12'
     }
 }
+
+apply from: "$rootProject.projectDir/publishing.gradle"
 
 task wrapper(type: Wrapper) {
     archiveBase = 'PROJECT'
