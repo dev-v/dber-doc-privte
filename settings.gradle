@@ -1,3 +1,11 @@
 rootProject.name = 'dber'
 
-include 'dber-service-api'
+include 'dber-base-util'
+
+include 'dber-base-api'
+
+include 'dber-base-service'
+
+include 'dber-service-example-api'
+
+include 'dber-service-example-service'
