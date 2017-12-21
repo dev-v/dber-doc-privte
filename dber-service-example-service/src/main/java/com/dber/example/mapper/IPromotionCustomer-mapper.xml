@@ -1,0 +1,94 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dber.example.mapper.IPromotionCustomerMapper">
+
+	<!-- 注意检查非空和主键自增属性 -->
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+		<!-- 不包含主键和数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+		insert into promotion_customer (
+		<if test="customerId!=null">
+			id,customer_id,
+		</if>
+		promotion_id,invalid_date,promotion_name,get_date,_status
+		) values (
+		<if test="customerId!=null">
+			#{id},#{customerId},
+		</if>
+		#{promotionId},#{invalidDate},#{promotionName},#{getDate},#{status}
+		)
+	</insert>
+
+	<delete id="del">
+		delete from promotion_customer where id = #{id}
+	</delete>
+
+	<update id="update">
+		<!-- 不包括主键和timestamp类型 -->
+		update promotion_customer
+		<set>
+			<if test="promotionName != null ">
+				promotion_name=#{promotionName},
+			</if>
+			<if test="customerId != null ">
+				promotion_id=#{customerId},
+			</if>
+			<if test="customerId != null ">
+				invalid_date=#{customerId}
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<insert id="save">
+		<!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+		insert into promotion_customer (
+		id,customer_id,
+		promotion_id,invalid_date,promotion_Name,_status,get_date
+		) values (
+		<!-- 注意非空元素 -->
+		#{id},#{customerId},#{promotionId},#{invalidDate},#{promotionName},#{status},#{getDate}
+		) ON DUPLICATE KEY
+		UPDATE
+		<!-- 去掉id 并且加上非空判断条件 -->
+		promotion_Name=VALUES(promotion_Name)
+	</insert>
+
+	<select id="get" resultType="promotionCustomer">
+		select * from promotion_customer
+		where id=#{id}
+	</select>
+
+	<select id="gets" resultType="promotionCustomer">
+		SELECT *
+		FROM promotion_customer
+		WHERE id in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<sql id="querySql">
+		<!-- 列类型为数字、日期时间、字段设计长度小于101的字符都将返回 -->
+		select id,customer_id, promotion_id,invalid_date,promotion_name from
+		promotion_customer
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<!-- 主键列、索引列（含外键列）、普通字段 -->
+			<if test="id != null ">
+				AND id=#{id}
+			</if>
+			<if test="promotionName != null">
+				AND promotion_Name=#{promotionName}
+			</if>
+		</trim>
+	</sql>
+
+	<select id="query" resultType="promotionCustomer">
+		<include refid="querySql"></include>
+	</select>
+
+	<select id="queryWithoutPage" resultType="promotionCustomer">
+		<include refid="querySql"></include>
+	</select>
+</mapper>
