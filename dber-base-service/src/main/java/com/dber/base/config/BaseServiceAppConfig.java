@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.method.annotation.RequestParamMapMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -66,5 +67,13 @@ public class BaseServiceAppConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public RequestParamMapMethodArgumentResolver requestParamMapMethodArgumentResolver() {
 		return new RequestParamMapMethodArgumentResolver();
+	}
+
+	@Bean
+	public CharacterEncodingFilter characterEncodingFilter() {
+		CharacterEncodingFilter filter = new CharacterEncodingFilter();
+		filter.setEncoding("utf-8");
+		filter.setForceEncoding(true);
+		return filter;
 	}
 }

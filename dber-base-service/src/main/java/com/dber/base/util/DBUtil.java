@@ -47,7 +47,7 @@ public class DBUtil {
 			sb.append(config.getPort()).append('/');
 			sb.append(config.getDatabase()).append('?');
 			if (Util.isBlank(config.getParameters())) {
-				sb.append("useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&autoReconnect=true");
+				sb.append("characterEncoding=utf8&rewriteBatchedStatements=true&autoReconnect=true");
 			} else {
 				sb.append(config.getParameters());
 			}

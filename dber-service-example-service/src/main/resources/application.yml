@@ -5,7 +5,6 @@ spring:
 
 logging:
   path: logs
-    
 
 ---
 spring:
@@ -19,6 +18,7 @@ dber.example:
       database: dber_plat
       username: root
       password: 123456
+      parameters: characterEncoding=utf8&rewriteBatchedStatements=true&autoReconnect=true
       initialSize: 1
       maxActive: 2
       minIdle: 1

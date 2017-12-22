@@ -15,7 +15,7 @@ import com.dber.base.mybatis.plugin.pagination.page.Page;
  * @since 2017年12月19日
  * @author dev-v
  */
-public interface IService <E>{
+public interface IService<E> {
 
 	/**
 	 * <pre>
@@ -99,4 +99,26 @@ public interface IService <E>{
 	 * @return
 	 */
 	Collection<E> queryWithoutPage(E e);
+
+	/**
+	 * <pre>
+	 * 根据条件获取主键集合
+	 * 最大返回1000条
+	 * </pre>
+	 * 
+	 * @param key
+	 * @return
+	 */
+	long[] getIds(E e);
+
+	/**
+	 * <pre>
+	 * 根据主键集合删除数据
+	 * 最大一次删除1000条
+	 * </pre>
+	 * 
+	 * @param key
+	 * @return
+	 */
+	int dels(Serializable[] keys);
 }

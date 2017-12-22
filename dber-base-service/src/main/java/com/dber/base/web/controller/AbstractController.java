@@ -1,11 +1,9 @@
 package com.dber.base.web.controller;
 
-import java.io.Serializable;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -56,7 +54,7 @@ public abstract class AbstractController<E> implements ILoginService {
 	 * @return 修改成功行数
 	 */
 	@RequestMapping("/update")
-	Response<Integer> update(@ModelAttribute("data") E e) {
+	Response<Integer> update(E e) {
 		return Response.newSuccessResponse(service.update(e));
 	}
 
@@ -71,7 +69,7 @@ public abstract class AbstractController<E> implements ILoginService {
 	 * @return
 	 */
 	@RequestMapping("/save")
-	Response<E> save(@ModelAttribute("data") E e) {
+	Response<E> save(E e) {
 		service.save(e);
 		return Response.newSuccessResponse(e);
 	}
@@ -85,7 +83,7 @@ public abstract class AbstractController<E> implements ILoginService {
 	 * @return
 	 */
 	@RequestMapping("/del/{id}")
-	Response<Integer> del(@PathVariable("id") Serializable id) {
+	Response<Integer> del(@PathVariable long id) {
 		return Response.newSuccessResponse(service.del(id));
 	}
 
@@ -98,7 +96,7 @@ public abstract class AbstractController<E> implements ILoginService {
 	 * @return
 	 */
 	@RequestMapping("/get/{id}")
-	Response<E> get(@PathVariable("id") Serializable id) {
+	Response<E> get(@PathVariable long id) {
 		E e = service.get(id);
 		if (e == null) {
 			throw NOT_FOUND_EXCEPTION;
@@ -129,12 +127,40 @@ public abstract class AbstractController<E> implements ILoginService {
 	 * @return
 	 */
 	@RequestMapping("/query/{currentPage}")
-	Response<Page<E>> query(@PathVariable("currentPage") int currentPage, @ModelAttribute("data") E data) {
+	Response<Page<E>> query(@PathVariable int currentPage, E data) {
 		Page<E> page = new Page<>(currentPage);
 		page.setCondition(data);
 		page.setSort("modify_time desc");
 		service.query(page);
 		return Response.newSuccessResponse(page);
+	}
+
+	/**
+	 * <pre>
+	 * 根据条件获取主键集合
+	 * 最大返回1000条
+	 * </pre>
+	 * 
+	 * @param key
+	 * @return
+	 */
+	@RequestMapping("/ids")
+	public Response<long[]> getIds(E e) {
+		return Response.newSuccessResponse(service.getIds(e));
+	}
+
+	/**
+	 * <pre>
+	 * 根据主键集合删除数据
+	 * 最大一次删除1000条
+	 * </pre>
+	 * 
+	 * @param key
+	 * @return
+	 */
+	@RequestMapping("/dels")
+	public Response<Integer> dels(Long[] ids) {
+		return Response.newSuccessResponse(service.dels(ids));
 	}
 
 	@PostConstruct

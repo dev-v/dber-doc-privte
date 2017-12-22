@@ -62,6 +62,15 @@ public abstract class AbstractService<E> implements IService<E> {
 		return mapper.queryWithoutPage(e);
 	}
 
+	public long[] getIds(E e) {
+		return mapper.getIds(e);
+	}
+
+	@Override
+	public int dels(Serializable[] keys) {
+		return mapper.dels(keys);
+	}
+
 	/**
 	 * <pre>
 	 * 返回操作实体 < E > 的纯mapper对象
