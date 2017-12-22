@@ -139,6 +139,20 @@ public class Util {
 				|| Character.class.isAssignableFrom(clazz) || CharSequence.class.isAssignableFrom(clazz);
 	}
 
+	/**
+	 * <pre>
+	 * 判定一个对象是否为八种基础类型
+	 * 或者是否为字符序列
+	 * </pre>
+	 * 
+	 * @param object
+	 * @return
+	 */
+	public static final boolean isPremitive(Class<?> clazz) {
+		return Number.class.isAssignableFrom(clazz) || Boolean.class.isAssignableFrom(clazz)
+				|| Character.class.isAssignableFrom(clazz) || CharSequence.class.isAssignableFrom(clazz);
+	}
+
 	public static final Long dateToTime(String datetime) {
 		if (isBlank(datetime)) {
 			return null;

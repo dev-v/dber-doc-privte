@@ -1,10 +1,10 @@
 package com.dber.example.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.method.annotation.RequestParamMapMethodArgumentResolver;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+import org.springframework.context.annotation.Import;
+
+import com.dber.base.config.BaseServiceAppConfig;
 
 /**
  * <li>文件名称: WebConfig.java</li>
@@ -17,16 +17,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
  * @author dev-v
  */
 @Configuration
+@Import({ BaseServiceAppConfig.class })
 @ComponentScan("com.dber.example.web")
 public class ExampleWebConfig {
-
-	@Bean
-	public MappingJackson2JsonView jsonView() {
-		return new MappingJackson2JsonView();
-	}
-
-	@Bean
-	public RequestParamMapMethodArgumentResolver requestParamMapMethodArgumentResolver() {
-		return new RequestParamMapMethodArgumentResolver();
-	}
 }

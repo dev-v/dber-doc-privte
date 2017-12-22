@@ -25,7 +25,7 @@ public class PromotionCustomerController extends AbstractController<PromotionCus
 
 	@Autowired
 	private IPromotionCustomerService service;
-	
+
 	@Override
 	protected IService<PromotionCustomer> getService() {
 		return this.service;

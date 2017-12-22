@@ -5,6 +5,7 @@ spring:
 
 logging:
   path: logs
+    
 
 ---
 spring:

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.dber.base.exception.system.NotFoundException;
 import com.dber.base.exception.system.NotLoginException;
 import com.dber.base.mybatis.plugin.pagination.page.Page;
 import com.dber.base.response.Response;
@@ -30,13 +31,14 @@ import com.dber.base.service.IService;
  * @author dev-v
  */
 public abstract class AbstractController<E> implements ILoginService {
-	private static final NotLoginException notLoginException = new NotLoginException();
+	private static final NotLoginException NOT_LOGIN_EXCEPTION = new NotLoginException();
+	private static final NotFoundException NOT_FOUND_EXCEPTION = new NotFoundException();
 
 	IService<E> service;
 
 	@Override
 	public Account getAccount() throws NotLoginException {
-		throw notLoginException;
+		throw NOT_LOGIN_EXCEPTION;
 	}
 
 	@RequestMapping("/insert")
@@ -54,7 +56,7 @@ public abstract class AbstractController<E> implements ILoginService {
 	 * @return 修改成功行数
 	 */
 	@RequestMapping("/update")
-	Response<Integer> update(E e) {
+	Response<Integer> update(@ModelAttribute("data") E e) {
 		return Response.newSuccessResponse(service.update(e));
 	}
 
@@ -69,7 +71,7 @@ public abstract class AbstractController<E> implements ILoginService {
 	 * @return
 	 */
 	@RequestMapping("/save")
-	Response<E> save(E e) {
+	Response<E> save(@ModelAttribute("data") E e) {
 		service.save(e);
 		return Response.newSuccessResponse(e);
 	}
@@ -97,7 +99,11 @@ public abstract class AbstractController<E> implements ILoginService {
 	 */
 	@RequestMapping("/get/{id}")
 	Response<E> get(@PathVariable("id") Serializable id) {
-		return Response.newSuccessResponse(service.get(id));
+		E e = service.get(id);
+		if (e == null) {
+			throw NOT_FOUND_EXCEPTION;
+		}
+		return Response.newSuccessResponse(e);
 	}
 
 	/**
@@ -123,7 +129,7 @@ public abstract class AbstractController<E> implements ILoginService {
 	 * @return
 	 */
 	@RequestMapping("/query/{currentPage}")
-	Response<Page<E>> query(@PathVariable("currentPage") int currentPage, @ModelAttribute E data) {
+	Response<Page<E>> query(@PathVariable("currentPage") int currentPage, @ModelAttribute("data") E data) {
 		Page<E> page = new Page<>(currentPage);
 		page.setCondition(data);
 		page.setSort("modify_time desc");

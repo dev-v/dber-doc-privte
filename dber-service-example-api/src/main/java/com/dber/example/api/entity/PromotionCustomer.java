@@ -1,6 +1,7 @@
 package com.dber.example.api.entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.Data;
 
@@ -31,7 +32,7 @@ public class PromotionCustomer {
 	 */
 	private Date invalidDate;
 
-	private Date modifyTime;
+	private Timestamp modifyTime;
 
 	private Date getDate;
 

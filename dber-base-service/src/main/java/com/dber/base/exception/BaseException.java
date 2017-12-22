@@ -12,8 +12,8 @@ import com.dber.base.exception.system.IllegalDefineException;
  * 
  * <pre>
  * 通用业务异常定义
- * code代码范围定义：code代码必须为大于或等于500的整形数
- * 500 - 9999 为框架、工具代码、中间件等通用服务预留代码段 开发框架、中间件等通用组件在构建自定义异常架构时，需要预先申请自己的框架异常代码段
+ * code代码范围定义：code代码必须为大于或等于300的整形数
+ * 300 - 9999 为框架、工具代码、中间件等通用服务预留代码段 开发框架、中间件等通用组件在构建自定义异常架构时，需要预先申请自己的框架异常代码段
  * 10000 - Integer.MAX_VALUE 为业务服务包装异常可用的代码段，每个业务系统在建立业务系统自定义异常构架时，需要预先申请自己的业务异常代码段
  * </pre>
  * 
@@ -81,8 +81,8 @@ public abstract class BaseException extends RuntimeException {
 	 */
 	private static final void checkDefine(int code, Class<? extends BaseException> clz) {
 		if (FrameworkException.class.isAssignableFrom(clz)) {
-			
-			if (code > 499 && code < 9999) {
+
+			if (code > 299 && code < 9999) {
 				return;
 			}
 		} else if (BusinessException.class.isAssignableFrom(clz)) {

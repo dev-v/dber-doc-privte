@@ -1,13 +1,16 @@
 package com.dber.base.web.resolver;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -26,12 +29,12 @@ import com.dber.base.response.Response;
  * @since 2017年12月21日
  * @author dev-v
  */
+@RestControllerAdvice
 public class ExceptionResolver implements HandlerExceptionResolver {
 
 	private Log log = LogFactory.getLog(ExceptionResolver.class);
 
 	@Autowired
-	@Qualifier("jsonView")
 	private View jsonView;
 
 	/**
@@ -52,11 +55,15 @@ public class ExceptionResolver implements HandlerExceptionResolver {
 		} else {
 			exception = new ThirdException(ex);
 		}
-		log.error(exception);
+
+		Map<String, Object> errorResponse = Response.newFailureResponse(exception).getErrorMsg();
+		log.error(errorResponse);
+		log.error(ExceptionUtils.getStackTrace(ex));
 
 		ModelAndView mv = new ModelAndView();
-		mv.addObject(Response.newFailureResponse(exception));
 		mv.setView(jsonView);
+
+		mv.addAllObjects(errorResponse);
 
 		return mv;
 	}

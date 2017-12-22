@@ -6,7 +6,7 @@ package com.dber.base.exception;
  * 
  * <pre>
  * 框架本身的异常
- * 异常代码为500-9999
+ * 异常代码为300-9999
  * </pre>
  * 
  * <li>其他说明: ...</li>

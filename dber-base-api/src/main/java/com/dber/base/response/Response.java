@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import lombok.Data;
 
 /**
@@ -97,6 +99,25 @@ public class Response<E> implements Serializable {
 		return response;
 	}
 
+	private static final ThreadLocal<Map<String, Object>> error_msg_map = new ThreadLocal<>();
+
+	@JSONField(serialize = false)
+	public final Map<String, Object> getErrorMsg() {
+		Map<String, Object> map = error_msg_map.get();
+		if (map == null) {
+			map = new HashMap<>();
+			error_msg_map.set(map);
+		}
+		map.put("code", this.getCode());
+		map.put("msg", this.getMsg());
+		map.put("uuid", this.getUuid());
+		return map;
+	}
+
+	public boolean isSuccess() {
+		return 200 == code;
+	}
+
 	public void setCode(int code) {
 		if (this.code == 0) {
 			this.code = code;
@@ -124,12 +145,4 @@ public class Response<E> implements Serializable {
 		}
 	}
 
-	public Map<String, Object> toMap() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("code", getCode());
-		map.put("uuid", getUuid());
-		map.put("msg", getMsg());
-		map.put("response", getResponse());
-		return map;
-	}
 }
