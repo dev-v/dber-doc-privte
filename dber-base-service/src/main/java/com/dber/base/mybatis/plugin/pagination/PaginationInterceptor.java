@@ -70,9 +70,10 @@ public class PaginationInterceptor implements Interceptor {
 	 * 二、使用缓存（缓存数据若返回-1表示没有缓存）
 	 * 首先检查缓存
 	 * 2、有缓存直接使用缓存
-	 * （1）查询数据，数据量等于每页最大查询数据直接返回
-	 * （2）数据量小于最大查询数据，本地计算count重新缓存
-	 * （3）数据量为0，则当做没有缓存重走查询流程
+	 * （1）查询页为缓存最大页则当做没有缓存
+	 * （2）查询数据，数据量等于每页最大查询数据直接返回
+	 * （3）数据量小于最大查询数据，本地计算count重新缓存
+	 * （4）数据量为0，则当做没有缓存重走查询流程
 	 * 没有缓存
 	 * （1）查询数据库count并进行缓存
 	 * （2）查询數據
@@ -101,17 +102,21 @@ public class PaginationInterceptor implements Interceptor {
 			long count = CacheCount.getCacheCount(key);
 
 			if (count != -1) {// 使用緩存
-				setDatas(queryArgs, page, ms, boundSql, invocation);
-				int size = page.getDatas().size();
-				if (size == page.getPageSize()) {// 緩存有效
-					page.setCount(count);
-					return page.getDatas();
-				} else if (size < page.getPageSize()) {// 本地重置緩存
-					page.setCount(size + (page.getCurrentPage() - 1) * page.getPageSize());
-					CacheCount.cacheCount(key, page);
-					return page.getDatas();
-				} else if (size == 0) {// 緩存失效 使用數據庫count
-
+				page.setCount(count);
+				if (page.getCurrentPage() < page.getAllPage()) {
+					setDatas(queryArgs, page, ms, boundSql, invocation);
+					int size = page.getDatas().size();
+					if (size == page.getPageSize()) {// 緩存有效
+						page.setCount(count);
+						return page.getDatas();
+					} else if (size < page.getPageSize()) {// 本地重置緩存
+						page.setCount(size + (page.getCurrentPage() - 1) * page.getPageSize());
+						CacheCount.cacheCount(key, page);
+						return page.getDatas();
+					}
+					// else if (size == 0) {// 緩存失效 使用數據庫count
+					//
+					// }
 				}
 			}
 

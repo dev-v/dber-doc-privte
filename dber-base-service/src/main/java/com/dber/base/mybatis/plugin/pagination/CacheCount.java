@@ -35,7 +35,7 @@ public class CacheCount {
 	}
 
 	public static final void cacheCount(String key, Page<?> page) {
-		if (page.getAllPage() > 3) {
+		if (page.getAllPage() > 2) {
 			CACHE_MAP.put(key, page.getCount());
 		} else {
 			CACHE_MAP.remove(key);
