@@ -1,4 +1,4 @@
-package com.dber.base.response;
+package com.dber.base.result;
 
 /**
  * <li>文件名称: ResponsePage.java</li>
@@ -10,7 +10,7 @@ package com.dber.base.response;
  * @since 2017年12月20日
  * @author dev-v
  */
-public class ResponsePage<E> extends Response<Page<E>> {
+public class ReceiverPage<E> extends Receiver<Page<E>> {
 
 	private static final long serialVersionUID = -6036626262203719024L;
 }

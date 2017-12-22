@@ -17,7 +17,7 @@ import org.springframework.web.servlet.View;
 
 import com.dber.base.exception.BaseException;
 import com.dber.base.exception.system.ThirdException;
-import com.dber.base.response.Response;
+import com.dber.base.web.vo.Response;
 
 /**
  * <li>文件名称: ExceptionResolver.java</li>
@@ -56,7 +56,8 @@ public class ExceptionResolver implements HandlerExceptionResolver {
 			exception = new ThirdException(ex);
 		}
 
-		Map<String, Object> errorResponse = Response.newFailureResponse(exception).getErrorMsg();
+		Map<String, Object> errorResponse = Response.newFailureResponse(exception.getCode(), exception.getMessage())
+				.getErrorMsg();
 		log.error(errorResponse);
 		log.error(ExceptionUtils.getStackTrace(ex));
 

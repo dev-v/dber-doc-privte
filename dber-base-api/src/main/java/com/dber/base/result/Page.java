@@ -1,4 +1,4 @@
-package com.dber.base.response;
+package com.dber.base.result;
 
 import java.io.Serializable;
 import java.util.Collection;

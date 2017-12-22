@@ -1,4 +1,4 @@
-package com.dber.base.response;
+package com.dber.base.web.vo;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import lombok.Data;
 /**
  * <li>文件名称: Response.java</li>
  * <li>修改记录: ...</li>
- * <li>内容摘要: 统一的响应结果和响应结果接收信息包装</li>
+ * <li>内容摘要: 用于封装响应信息</li>
  * <li>其他说明: ...</li>
  * 
  * @version 1.0
@@ -81,8 +81,21 @@ public class Response<E> implements Serializable {
 		return newResponse(200, response);
 	}
 
-	public static Response<Throwable> newFailureResponse(Throwable error) {
-		return new Response<Throwable>(500, error);
+	/**
+	 * <pre>
+	 * </pre>
+	 * 
+	 * @param msg
+	 *            失败消息
+	 * @return
+	 */
+	public static Response<Throwable> newFailureResponse(int code, String msg) {
+		if (code == 200) {
+			code = 500;
+		}
+		Response<Throwable> response = new Response<Throwable>(code, null);
+		response.setMsg(msg);
+		return response;
 	}
 
 	/**
@@ -94,9 +107,7 @@ public class Response<E> implements Serializable {
 	 * @return
 	 */
 	public static Response<Throwable> newFailureResponse(String msg) {
-		Response<Throwable> response = new Response<Throwable>(500, null);
-		response.setMsg(msg);
-		return response;
+		return newFailureResponse(500, msg);
 	}
 
 	private static final ThreadLocal<Map<String, Object>> error_msg_map = new ThreadLocal<>();

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.dber.base.exception.system.NotFoundException;
 import com.dber.base.exception.system.NotLoginException;
 import com.dber.base.mybatis.plugin.pagination.page.Page;
-import com.dber.base.response.Response;
+import com.dber.base.web.vo.Response;
 import com.dber.base.service.IService;
 
 /**
