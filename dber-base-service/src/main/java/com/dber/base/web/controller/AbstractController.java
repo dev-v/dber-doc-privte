@@ -29,14 +29,12 @@ import com.dber.base.service.IService;
  * @author dev-v
  */
 public abstract class AbstractController<E> implements ILoginService {
-	private static final NotLoginException NOT_LOGIN_EXCEPTION = new NotLoginException();
-	private static final NotFoundException NOT_FOUND_EXCEPTION = new NotFoundException();
 
 	IService<E> service;
 
 	@Override
 	public Account getAccount() throws NotLoginException {
-		throw NOT_LOGIN_EXCEPTION;
+		throw new NotLoginException();
 	}
 
 	@RequestMapping("/insert")
@@ -99,7 +97,7 @@ public abstract class AbstractController<E> implements ILoginService {
 	Response<E> get(@PathVariable long id) {
 		E e = service.get(id);
 		if (e == null) {
-			throw NOT_FOUND_EXCEPTION;
+			throw new NotFoundException();
 		}
 		return Response.newSuccessResponse(e);
 	}
