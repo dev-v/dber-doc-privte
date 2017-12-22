@@ -15,34 +15,30 @@ import com.mysql.jdbc.util.LRUCache;
  */
 public class CacheCount {
 
-	private long lastCacheTime;
-	private long count = -1;
+	private static final LRUCache<String, Long> CACHE_MAP = new LRUCache<>(10000);
 
-	private static long cacheTime = 1000 * 60 * 60;
-
-	private static final LRUCache<String, CacheCount> CACHE_MAP = new LRUCache<>(10000);
-
-	private CacheCount(long count) {
-		this.count = count;
-		this.lastCacheTime = System.currentTimeMillis();
-	}
-
+	/**
+	 * <pre>
+	 * 若沒有緩存 返回 -1
+	 * </pre>
+	 * 
+	 * @param key
+	 * @return
+	 */
 	public static final long getCacheCount(String key) {
-		CacheCount cacheCount = CACHE_MAP.get(key);
-
-		if (cacheCount == null) {
-			return -1;
-		} else if (System.currentTimeMillis() - cacheCount.lastCacheTime > cacheTime) {
-			CACHE_MAP.remove(key);
+		Long count = CACHE_MAP.get(key);
+		if (count == null) {
 			return -1;
 		} else {
-			return cacheCount.count;
+			return count;
 		}
 	}
 
-	public static final void cacheCount(String key, long count) {
-		if (count > Page.MAX_PAGE_SIZE) {
-			CACHE_MAP.put(key, new CacheCount(count));
+	public static final void cacheCount(String key, Page<?> page) {
+		if (page.getAllPage() > 3) {
+			CACHE_MAP.put(key, page.getCount());
+		} else {
+			CACHE_MAP.remove(key);
 		}
 	}
 }

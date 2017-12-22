@@ -12,6 +12,8 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
+import com.dber.base.exception.BaseException;
+import com.dber.base.exception.system.ThirdException;
 import com.dber.base.response.Response;
 
 /**
@@ -32,14 +34,30 @@ public class ExceptionResolver implements HandlerExceptionResolver {
 	@Qualifier("jsonView")
 	private View jsonView;
 
+	/**
+	 * 这里可以统一做异常处理 登录跳转等操作
+	 */
 	@Override
 	@ExceptionHandler(Throwable.class)
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception ex) {
-		log.error(ex);
+		BaseException exception;
+
+		if (ex instanceof BaseException) {
+			exception = (BaseException) ex;
+			// 登录跳转
+			if (exception instanceof ThirdException) {
+
+			}
+		} else {
+			exception = new ThirdException(ex);
+		}
+		log.error(exception);
+
 		ModelAndView mv = new ModelAndView();
-		mv.addObject(Response.newFailureResponse(ex));
+		mv.addObject(Response.newFailureResponse(exception));
 		mv.setView(jsonView);
+
 		return mv;
 	}
 }

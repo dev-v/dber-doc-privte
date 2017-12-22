@@ -15,28 +15,29 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.dber.base.mybatis.plugin.pagination.PaginationInterceptor;
 import com.dber.base.util.DBUtil;
 import com.dber.base.util.JdbcPoolConfig;
 
 /**
- * <li>文件名称: ExampleConfig.java</li>
+ * <li>文件名称: ExampleService.java</li>
  * <li>修改记录: ...</li>
  * <li>内容摘要: ...</li>
  * <li>其他说明: ...</li>
  * 
  * @version 1.0
- * @since 2017年12月20日
+ * @since 2017年12月21日
  * @author dev-v
  */
 @Configuration
-@ComponentScan("com.dber.example.service")
-@MapperScan(basePackages = { "com.dber.example.mapper" })
 @EnableConfigurationProperties
 @EnableAutoConfiguration
-public class ExampleConfig {
-
+@EnableTransactionManagement
+@ComponentScan("com.dber.example.service")
+@MapperScan(basePackages = { "com.dber.example.mapper" })
+public class ExampleServiceConfig {
 	@Bean
 	@ConfigurationProperties(prefix = "dber.example.service.mysql")
 	public JdbcPoolConfig jdbcPoolConfig() {
@@ -66,18 +67,18 @@ public class ExampleConfig {
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-		
+
 		sqlSessionFactoryBean.setDataSource(dataSource());
-		
+
 		sqlSessionFactoryBean.setConfiguration(mybatisConfiguration());
-		
+
 		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
 		sqlSessionFactoryBean
 				.setMapperLocations(resourceResolver.getResources("classpath*:/com/dber/example/mapper/*-mapper.xml"));
-		
+
 		Interceptor[] interceptors = { PaginationInterceptor.getInstance() };
 		sqlSessionFactoryBean.setPlugins(interceptors);
-		
+
 		return sqlSessionFactoryBean;
 	}
 }

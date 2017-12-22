@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.alibaba.fastjson.JSON;
 import com.dber.base.mybatis.plugin.pagination.page.Page;
 import com.dber.example.api.entity.PromotionCustomer;
-import com.dber.example.config.ExampleConfig;
+import com.dber.example.config.AppConfig;
 
 /**
  * <li>文件名称: PromotionCustomerServiceTest.java</li>
@@ -31,7 +31,7 @@ import com.dber.example.config.ExampleConfig;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@ContextConfiguration(classes = ExampleConfig.class, initializers = ConfigFileApplicationContextInitializer.class)
+@ContextConfiguration(classes = AppConfig.class, initializers = ConfigFileApplicationContextInitializer.class)
 @FixMethodOrder(MethodSorters.JVM)
 public class PromotionCustomerServiceTest {
 
@@ -45,16 +45,18 @@ public class PromotionCustomerServiceTest {
 
 	@Test
 	public void test1_insert() {
-		PromotionCustomer customer = new PromotionCustomer();
-		customer.setId(id);
-		customer.setCustomerId(5);
-		customer.setInvalidDate(new Date(1000));
-		customer.setPromotionId(1);
-		customer.setPromotionName("insert");
-		customer.setGetDate(new Date(1000));
-		customer.setStatus(1);
-		service.insert(customer);
-		log.info(customer);
+		for(;;) {
+			PromotionCustomer customer = new PromotionCustomer();
+//			customer.setId(id);
+			customer.setCustomerId(5);
+			customer.setInvalidDate(new Date(1000));
+			customer.setPromotionId(1);
+			customer.setPromotionName("insert");
+			customer.setGetDate(new Date(1000));
+			customer.setStatus(1);
+			service.insert(customer);
+			log.info(customer);
+		}
 	}
 
 	@Test

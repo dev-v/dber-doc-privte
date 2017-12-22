@@ -28,8 +28,11 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
  */
 public class PageParameterHandler {
 
+	private static final String page_params_key_cache = "_page_params_key_cache_";
+
 	@SuppressWarnings("unchecked")
-	public static final void setParameters(PreparedStatement statement, List<PageParameter> parameters) {
+	public static final void setParameters(PreparedStatement statement, BoundSql boundSql) {
+		List<PageParameter> parameters = (List<PageParameter>) boundSql.getAdditionalParameter(page_params_key_cache);
 		if (parameters != null) {
 			for (int i = 0; i < parameters.size(); i++) {
 				PageParameter parameter = parameters.get(i);
@@ -51,10 +54,9 @@ public class PageParameterHandler {
 	 * 
 	 * @param ms
 	 * @param boundSql
-	 * @return
+	 * @return 直接返回key
 	 */
-	public static final Object[] getKeyAndParameters(MappedStatement ms, BoundSql boundSql) {
-		Object[] keyAndParameters = new Object[2];
+	public static final String parseKeyAndParameters(MappedStatement ms, BoundSql boundSql) {
 		StringBuilder sb = new StringBuilder(ms.getId());
 		List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
 		if (parameterMappings != null) {
@@ -92,9 +94,9 @@ public class PageParameterHandler {
 					parameters.add(new PageParameter(propertyName, value, jdbcType, typeHandler));
 				}
 			}
-			keyAndParameters[1] = parameters;
+			boundSql.setAdditionalParameter(page_params_key_cache, parameters);
 		}
-		keyAndParameters[0] = sb.toString();
-		return keyAndParameters;
+
+		return sb.toString();
 	}
 }
