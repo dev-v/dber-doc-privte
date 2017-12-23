@@ -26,4 +26,8 @@ public class ThirdException extends FrameworkException {
 		super(code, "未知信息，请求失联！", cause);
 	}
 
+	public ThirdException(String message, Throwable cause) {
+		super(code, message, cause);
+	}
+
 }

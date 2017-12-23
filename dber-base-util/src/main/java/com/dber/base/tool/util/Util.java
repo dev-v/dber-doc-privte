@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -133,24 +134,8 @@ public class Util {
 	 * @param object
 	 * @return
 	 */
-	public static final boolean isPremitive(Object object) {
-		Class<? extends Object> clazz = object.getClass();
-		return Number.class.isAssignableFrom(clazz) || Boolean.class.isAssignableFrom(clazz)
-				|| Character.class.isAssignableFrom(clazz) || CharSequence.class.isAssignableFrom(clazz);
-	}
-
-	/**
-	 * <pre>
-	 * 判定一个对象是否为八种基础类型
-	 * 或者是否为字符序列
-	 * </pre>
-	 * 
-	 * @param object
-	 * @return
-	 */
 	public static final boolean isPremitive(Class<?> clazz) {
-		return Number.class.isAssignableFrom(clazz) || Boolean.class.isAssignableFrom(clazz)
-				|| Character.class.isAssignableFrom(clazz) || CharSequence.class.isAssignableFrom(clazz);
+		return ClassUtils.isPrimitiveOrWrapper(clazz) || CharSequence.class.isAssignableFrom(clazz) || clazz.isEnum();
 	}
 
 	public static final Long dateToTime(String datetime) {

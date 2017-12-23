@@ -113,7 +113,7 @@
                     </task>
                     <task id="122" name="二维码标志" meeting="false" start="2017-12-24" duration="1" complete="0" expand="true"/>
                 </task>
-                <task id="78" name="平台管理部分主要基础模块开发完成上线（店铺端需使用的）" meeting="false" start="2017-12-25" duration="5" complete="20" expand="false">
+                <task id="78" name="平台管理部分主要基础模块开发完成上线（店铺端需使用的）" meeting="false" start="2017-12-25" duration="5" complete="20" expand="true">
                     <depend id="431" type="2" difference="0" hardness="Strong"/>
                     <task id="123" name="平台参数管理" meeting="false" start="2017-12-25" duration="1" complete="0" expand="true">
                         <depend id="125" type="2" difference="0" hardness="Strong"/>
@@ -125,7 +125,7 @@
                 </task>
                 <task id="431" name="完成公司相关所有域名注册（dber.com.cn）" color="#8cb6ce" meeting="false" start="2017-12-31" duration="1" complete="0" expand="true"/>
             </task>
-            <task id="73" name="2018/01" color="#000000" meeting="false" start="2018-01-01" duration="21" complete="0" expand="false">
+            <task id="73" name="2018/01" color="#000000" meeting="false" start="2018-01-01" duration="21" complete="0" expand="true">
                 <depend id="43" type="2" difference="0" hardness="Strong"/>
                 <depend id="74" type="2" difference="0" hardness="Strong"/>
                 <depend id="110" type="2" difference="0" hardness="Strong"/>

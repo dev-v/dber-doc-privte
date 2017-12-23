@@ -12,6 +12,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.alibaba.fastjson.util.TypeUtils;
+import com.dber.base.tool.util.Util;
 
 /**
  * <li>文件名称: FastJsonArgumentResolver.java</li>
@@ -27,8 +28,7 @@ public class FastJsonArgumentResolver implements HandlerMethodArgumentResolver {
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
-		Class<?> clz = parameter.getParameterType();
-		return !(clz.isPrimitive() || clz.isArray() || clz.isEnum() || CharSequence.class.isAssignableFrom(clz));
+		return Util.isPremitive(parameter.getParameterType());
 	}
 
 	/**
