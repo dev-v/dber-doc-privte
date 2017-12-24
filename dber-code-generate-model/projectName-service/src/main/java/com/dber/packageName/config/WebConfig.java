@@ -1,4 +1,4 @@
-package com.dber.example.config;
+package com.dber.#{packageName}.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +18,6 @@ import com.dber.base.config.BaseWebConfig;
  */
 @Configuration
 @Import({ BaseWebConfig.class })
-@ComponentScan("com.dber.example.web")
-public class ExampleWebConfig {
+@ComponentScan("com.dber.#{packageName}.web")
+public class #{projectJavaName}WebConfig {
 }

@@ -1,0 +1,93 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dber.#{packageName}.mapper.I#{javaClassName}Mapper">
+
+	<select id="get" resultType="#{javaClassName}">
+		select * from #{tableName} where id=#{id}
+	</select>
+
+	<delete id="del">
+		delete from #{tableName} where id = #{id}
+	</delete>
+
+	<select id="gets" resultType="#{javaClassName}">
+		SELECT * FROM #{tableName} WHERE id IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+	</select>
+
+	<sql id="maxLimit">
+		limit 1000
+	</sql>
+
+	<delete id="dels">
+		delete from #{tableName} where id in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+		<include refid="maxLimit"></include>
+	</delete>
+
+	<sql id="insertList">
+		(
+		#{insertList}
+		)
+	</sql>
+
+	<!-- 注意检查非空和主键自增属性 -->
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+		insert
+		into #{tableName}
+		<include refid="insertList"></include>
+	</insert>
+
+	<update id="update">
+		update #{tableName}
+		<set>
+			#{updateSet}
+		</set>
+		where id = #{id}
+	</update>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		<!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+		insert into #{tableName}
+		<include refid="insertList"></include>
+		ON DUPLICATE KEY
+		UPDATE
+		<trim suffixOverrides=",">
+			#{saveOnDuplicateSet}
+		</trim>
+	</insert>
+
+	<sql id="queryList">
+		select #{queryList} from
+		#{tableName}
+	</sql>
+
+	<sql id="where">
+		<trim prefix="WHERE" prefixOverrides="AND">
+			#{where}
+		</trim>
+	</sql>
+
+	<select id="query" resultType="#{javaClassName}">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+	</select>
+
+	<select id="queryWithoutPage" resultType="#{javaClassName}">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+	<select id="getIds" resultType="long">
+		select id from #{tableName}
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+</mapper>

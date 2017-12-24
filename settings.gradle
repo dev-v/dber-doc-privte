@@ -9,3 +9,7 @@ include 'dber-base-service'
 include 'dber-service-example-api'
 
 include 'dber-service-example-service'
+
+include 'dber-code-generator'
+
+include 'dber-base-redis'

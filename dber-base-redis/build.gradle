@@ -1,0 +1,8 @@
+apply from: "$rootProject.projectDir/build.gradle"
+
+dependencies {
+	compile 'redis.clients:jedis:2.9.0',
+			'org.springframework.data:spring-data-redis:2.0.2.RELEASE'
+			
+	compile project(":dber-base-util")
+}

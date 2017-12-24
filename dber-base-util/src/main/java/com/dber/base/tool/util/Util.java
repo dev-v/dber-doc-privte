@@ -1,5 +1,12 @@
 package com.dber.base.tool.util;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -256,6 +263,15 @@ public class Util {
 		return result.toString();
 	}
 
+	/**
+	 * <pre>
+	 * 不区分大小写
+	 * </pre>
+	 * 
+	 * @param src
+	 * @param target
+	 * @return
+	 */
 	public static boolean contains(String src, String target) {
 		if (src == null || target == null) {
 			return false;
@@ -280,4 +296,76 @@ public class Util {
 		}
 		return false;
 	}
+
+	/**
+	 * 根据文件路径获取文件内容
+	 * 
+	 * @param filePath
+	 */
+	public static String getFileContent(String filePath, String charset) {
+		StringBuilder sb = new StringBuilder();
+		String str;
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), charset));
+			while ((str = br.readLine()) != null) {
+				sb.append(str + "\r\n");
+			}
+			br.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * <pre>
+	 * 将内容写入到文件中
+	 * </pre>
+	 * 
+	 * @param filePath
+	 * @param content
+	 */
+	public static void writeFileContent(String filePath, String content) {
+		try {
+			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(filePath));
+			out.write(content);
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 将IP转换为long
+	 */
+	public static final long ip2Long(String ip) {
+		ip = ip.trim();
+		String[] ips = ip.split("\\.");
+		long ipLong = 0l;
+		for (int i = 0; i < 4; i++) {
+			ipLong = ipLong << 8 | Integer.parseInt(ips[i]);
+		}
+		return ipLong;
+	}
+
+	/**
+	 * 验证是否为正确的IP地址
+	 */
+	public static final boolean isIp(String IP) {// 判断是否是一个IP
+		boolean b = false;
+		IP = IP.trim();
+		if (IP.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")) {
+			String s[] = IP.split("\\.");
+			if (Integer.parseInt(s[0]) < 255)
+				if (Integer.parseInt(s[1]) < 255)
+					if (Integer.parseInt(s[2]) < 255)
+						if (Integer.parseInt(s[3]) < 255)
+							b = true;
+		}
+		return b;
+	}
+
 }

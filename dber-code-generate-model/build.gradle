@@ -1,0 +1,71 @@
+buildscript {
+
+    repositories {
+	    maven {
+	        url 'http://maven.aliyun.com/nexus/content/groups/public'
+	    }
+	    
+	    maven {
+	        url 'http://192.168.120.3:8081/nexus/repository/dber/'
+	    }
+	    
+	    maven {
+	      url "https://plugins.gradle.org/m2/"
+	    }
+	    
+	}
+    
+}
+
+allprojects {
+	
+    tasks.withType(AbstractCompile) each { it.options.encoding = encoding }
+    tasks.withType(GroovyCompile) each { it.groovyOptions.encoding = encoding }
+
+    repositories {
+	    maven {
+	        url 'http://maven.aliyun.com/nexus/content/groups/public'
+	    }
+	    
+	    maven {
+	        url 'http://192.168.120.3:8081/nexus/repository/dber/'
+	    }
+	    
+	    maven {
+	      url "https://plugins.gradle.org/m2/"
+	    }
+		
+	}
+    
+	apply plugin: 'groovy'
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	apply plugin: 'maven'
+
+    dependencies {
+		compile 'org.projectlombok:lombok:1.16.8',
+				'commons-logging:commons-logging:1.2',
+				'com.alibaba:fastjson:1.2.40',
+				'org.apache.commons:commons-lang3:3.7'
+				
+		testCompile 'junit:junit:4.12',
+					"org.springframework:spring-test:${springVersion}",
+					"org.springframework.boot:spring-boot-test:${springBootVersion}"
+    }
+}
+
+apply from: "$rootProject.projectDir/publishing.gradle"
+
+task wrapper(type: Wrapper) {
+    archiveBase = 'PROJECT'
+    archivePath = 'gradle/dists'
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+ 
+artifacts {
+    archives sourcesJar
+}

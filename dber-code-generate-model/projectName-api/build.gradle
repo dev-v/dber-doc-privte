@@ -1,0 +1,5 @@
+apply from: "$rootProject.projectDir/build.gradle"
+
+dependencies {
+	compile project("com.dber:dber-base-api:${project_version}")
+}

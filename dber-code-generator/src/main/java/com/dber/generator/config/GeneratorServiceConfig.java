@@ -1,4 +1,4 @@
-package com.dber.example.config;
+package com.dber.generator.config;
 
 import java.io.IOException;
 
@@ -35,11 +35,11 @@ import com.dber.base.util.JdbcPoolConfig;
 @EnableConfigurationProperties
 @EnableAutoConfiguration
 @EnableTransactionManagement
-@ComponentScan("com.dber.example.service")
-@MapperScan(basePackages = { "com.dber.example.mapper" })
-public class ExampleServiceConfig {
+@ComponentScan("com.dber.generator.service")
+@MapperScan(basePackages = { "com.dber.generator.mapper" })
+public class GeneratorServiceConfig {
 	@Bean
-	@ConfigurationProperties(prefix = "dber.example.service.mysql")
+	@ConfigurationProperties(prefix = "dber.generator.service.mysql")
 	public JdbcPoolConfig jdbcPoolConfig() {
 		return new JdbcPoolConfig();
 	}
@@ -60,7 +60,7 @@ public class ExampleServiceConfig {
 	public org.apache.ibatis.session.Configuration mybatisConfiguration() {
 		org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
 		configuration.setMapUnderscoreToCamelCase(true);
-		configuration.getTypeAliasRegistry().registerAliases("com.dber.example.api.entity");
+		configuration.getTypeAliasRegistry().registerAliases("com.dber.generator.entity");
 		return configuration;
 	}
 
@@ -73,8 +73,8 @@ public class ExampleServiceConfig {
 		sqlSessionFactoryBean.setConfiguration(mybatisConfiguration());
 
 		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
-		sqlSessionFactoryBean
-				.setMapperLocations(resourceResolver.getResources("classpath*:/com/dber/example/mapper/*_mapper.xml"));
+		sqlSessionFactoryBean.setMapperLocations(
+				resourceResolver.getResources("classpath*:/com/dber/generator/mapper/*-mapper.xml"));
 
 		Interceptor[] interceptors = { PaginationInterceptor.getInstance() };
 		sqlSessionFactoryBean.setPlugins(interceptors);

@@ -1,4 +1,4 @@
-package com.dber.example.config;
+package com.dber.#{packageName}.config;
 
 import java.io.IOException;
 
@@ -22,7 +22,7 @@ import com.dber.base.util.DBUtil;
 import com.dber.base.util.JdbcPoolConfig;
 
 /**
- * <li>文件名称: ExampleService.java</li>
+ * <li>文件名称: #{projectJavaName}Service.java</li>
  * <li>修改记录: ...</li>
  * <li>内容摘要: ...</li>
  * <li>其他说明: ...</li>
@@ -35,50 +35,50 @@ import com.dber.base.util.JdbcPoolConfig;
 @EnableConfigurationProperties
 @EnableAutoConfiguration
 @EnableTransactionManagement
-@ComponentScan("com.dber.example.service")
-@MapperScan(basePackages = { "com.dber.example.mapper" })
-public class ExampleServiceConfig {
+@ComponentScan("com.dber.#{packageName}.service")
+@MapperScan(basePackages = { "com.dber.#{packageName}.mapper" })
+public class #{projectJavaName}ServiceConfig {
 	@Bean
-	@ConfigurationProperties(prefix = "dber.example.service.mysql")
-	public JdbcPoolConfig jdbcPoolConfig() {
+	@ConfigurationProperties(prefix = "dber.#{packageName}.service.mysql")
+	public JdbcPoolConfig #{packageName}JdbcPoolConfig() {
 		return new JdbcPoolConfig();
 	}
 
 	@Bean
-	public DataSource dataSource() {
-		DataSource dataSource = DBUtil.dataSource(jdbcPoolConfig());
-		return dataSource;
+	public DataSource #{packageName}DataSource() {
+		DataSource #{packageName}DataSource = DBUtil.#{packageName}DataSource(#{packageName}JdbcPoolConfig());
+		return #{packageName}DataSource;
 	}
 
 	@Bean
-	public DataSourceTransactionManager transactionManager() {
-		DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(dataSource());
+	public DataSourceTransactionManager #{packageName}TransactionManager() {
+		DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(#{packageName}DataSource());
 		return transactionManager;
 	}
 
 	@Bean
-	public org.apache.ibatis.session.Configuration mybatisConfiguration() {
+	public org.apache.ibatis.session.Configuration #{packageName}MybatisConfiguration() {
 		org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
 		configuration.setMapUnderscoreToCamelCase(true);
-		configuration.getTypeAliasRegistry().registerAliases("com.dber.example.api.entity");
+		configuration.getTypeAliasRegistry().registerAliases("com.dber.#{packageName}.api.entity");
 		return configuration;
 	}
 
 	@Bean
-	public SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException {
-		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+	public SqlSessionFactoryBean #{packageName}SqlSessionFactoryBean() throws IOException {
+		SqlSessionFactoryBean #{packageName}SqlSessionFactoryBean = new SqlSessionFactoryBean();
 
-		sqlSessionFactoryBean.setDataSource(dataSource());
+		#{packageName}SqlSessionFactoryBean.setDataSource(#{packageName}DataSource());
 
-		sqlSessionFactoryBean.setConfiguration(mybatisConfiguration());
+		#{packageName}SqlSessionFactoryBean.setConfiguration(#{packageName}MybatisConfiguration());
 
 		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
-		sqlSessionFactoryBean
-				.setMapperLocations(resourceResolver.getResources("classpath*:/com/dber/example/mapper/*_mapper.xml"));
+		#{packageName}SqlSessionFactoryBean
+				.setMapperLocations(resourceResolver.getResources("classpath*:/com/dber/#{packageName}/mapper/*_mapper.xml"));
 
 		Interceptor[] interceptors = { PaginationInterceptor.getInstance() };
-		sqlSessionFactoryBean.setPlugins(interceptors);
+		#{packageName}SqlSessionFactoryBean.setPlugins(interceptors);
 
-		return sqlSessionFactoryBean;
+		return #{packageName}SqlSessionFactoryBean;
 	}
 }
