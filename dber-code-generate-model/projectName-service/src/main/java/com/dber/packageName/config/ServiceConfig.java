@@ -46,7 +46,7 @@ public class #{projectJavaName}ServiceConfig {
 
 	@Bean
 	public DataSource #{packageName}DataSource() {
-		DataSource #{packageName}DataSource = DBUtil.#{packageName}DataSource(#{packageName}JdbcPoolConfig());
+		DataSource #{packageName}DataSource = DBUtil.dataSource(#{packageName}JdbcPoolConfig());
 		return #{packageName}DataSource;
 	}
 

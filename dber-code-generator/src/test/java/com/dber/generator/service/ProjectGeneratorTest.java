@@ -33,7 +33,7 @@ public class ProjectGeneratorTest {
 	ProjectGenerator generator;
 
 	String modelPath = "E:\\dber_work\\dber\\dber-code-generate-model\\";
-	String projectDir = "E:\\dber_work\\dber-generator-test";
+	String projectDir = "E:\\dber_work\\";
 
 	@Test
 	public void test() {

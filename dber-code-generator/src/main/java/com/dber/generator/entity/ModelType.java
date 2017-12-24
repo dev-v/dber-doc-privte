@@ -12,12 +12,12 @@ package com.dber.generator.entity;
  */
 public enum ModelType {
 	entity, AppConfig, ServiceConfig, WebConfig, _mapper, // xml 映射文件
-	Mapper, // java mapper 接口
-	IService, Service, Controller, Application, settings;
+	IMapper, // java mapper 接口
+	IService, Service, Controller, Application, settings, build, application;
 
 	public boolean isConfig() {
 		return this == AppConfig || this == ModelType.ServiceConfig || this == ModelType.WebConfig
-				|| this == Application || this == settings;
+				|| this == Application || this == settings || this == ModelType.build || this == ModelType.application;
 	}
 
 	/**
@@ -28,6 +28,6 @@ public enum ModelType {
 	 * @return
 	 */
 	public boolean isNotNeedJavaProjectName() {
-		return settings == this || Application == this;
+		return settings == this || Application == this || this == ModelType.build || this == ModelType.application;
 	}
 }

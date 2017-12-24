@@ -15,5 +15,5 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import({ #{projectJavaName}ServiceConfig.class, #{projectJavaName}WebConfig.class })
-public class AppConfig {
+public class #{projectJavaName}AppConfig {
 }

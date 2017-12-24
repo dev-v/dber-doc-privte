@@ -22,7 +22,7 @@ public enum DataType {
 	INT("Integer","int"),
 	SMALLINT("Integer","smallint"),
 	TIME("Time","time"),
-	TIMESTAMP("timestamp","timestamp"),
+	TIMESTAMP("Timestamp","timestamp"),
 	TINYINT("Integer","tinyint"),
 	VARCHAR("String","varchar");
 

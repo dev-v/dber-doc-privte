@@ -133,8 +133,8 @@ public class ProjectGenerator {
 
 		@Override
 		public boolean filter(String fileName) {
-			if (fileName.endsWith(".java") || fileName.endsWith("_mapper.xml")
-					|| fileName.endsWith("settings.gradle")) {
+			if (fileName.endsWith(".java") || fileName.endsWith("_mapper.xml") || fileName.endsWith("settings.gradle")
+					|| fileName.endsWith("build.gradle")|| fileName.endsWith("application.yml")) {
 				notFilters.add(fileName);
 				return true;
 			}
