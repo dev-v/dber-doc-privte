@@ -36,8 +36,8 @@ public class ProjectGeneratorTest {
 	String projectDir = "E:\\dber_work\\";
 
 	@Test
-	public void test() {
-		generator.createProject(new Project(modelPath, projectDir,"dber_plat", "dber-plat", "plat"));
+	public void test1_generate_dber_plat() {
+		generator.createProject(new Project(modelPath, projectDir, "dber_plat", "dber-plat", "plat"));
 	}
 
 }

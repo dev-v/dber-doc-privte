@@ -50,8 +50,10 @@ public class Column {
 	}
 
 	public boolean isAutoGenerator() {
-		return (Util.contains(extra, "on") && Util.contains(extra, "update")
-				&& Util.contains(extra, "current_timestamp")) || Util.contains(extra, "auto_increment");
+		return Util.contains(columnName, "create_time")
+				|| Util.contains(columnName, "modify_time") || (Util.contains(extra, "on")
+						&& Util.contains(extra, "update") && Util.contains(extra, "current_timestamp"))
+				|| Util.contains(extra, "auto_increment");
 	}
 
 }

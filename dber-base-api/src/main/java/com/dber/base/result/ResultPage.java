@@ -10,7 +10,7 @@ package com.dber.base.result;
  * @since 2017年12月20日
  * @author dev-v
  */
-public class ReceiverPage<E> extends Receiver<Page<E>> {
+public class ResultPage<E> extends Result<Page<E>> {
 
 	private static final long serialVersionUID = -6036626262203719024L;
 }

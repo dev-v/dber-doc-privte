@@ -15,7 +15,7 @@ import lombok.Data;
  * @author dev-v
  */
 @Data
-public class Receiver<E> implements Serializable {
+public class Result<E> implements Serializable {
 
 	private static final long serialVersionUID = 409194411665386603L;
 
@@ -50,7 +50,7 @@ public class Receiver<E> implements Serializable {
 	 * </b>
 	 * </pre>
 	 */
-	public Receiver() {
+	public Result() {
 	}
 
 	public boolean isSuccess() {
