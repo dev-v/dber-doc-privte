@@ -6,6 +6,10 @@ buildscript {
 	    }
 	    
 	    maven {
+	      url "http://repo.spring.io/milestone"
+	    }
+	    
+	    maven {
 	        url 'http://192.168.120.3:8081/nexus/repository/dber/'
 	    }
 	    
@@ -25,6 +29,10 @@ allprojects {
     repositories {
 	    maven {
 	        url 'http://maven.aliyun.com/nexus/content/groups/public'
+	    }
+	    
+	    maven {
+	      url "http://repo.spring.io/milestone"
 	    }
 	    
 	    maven {

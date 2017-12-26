@@ -1,6 +1,6 @@
 package com.dber.generator.entity;
 
-import com.dber.base.tool.util.Util;
+import com.dber.util.Util;
 
 import lombok.Data;
 

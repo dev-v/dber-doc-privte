@@ -3,7 +3,7 @@ package com.dber.generator.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dber.base.tool.util.Util;
+import com.dber.util.Util;
 
 /**
  * <li>文件名称: Table.java</li>

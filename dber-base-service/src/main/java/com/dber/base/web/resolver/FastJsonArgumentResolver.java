@@ -12,7 +12,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.alibaba.fastjson.util.TypeUtils;
-import com.dber.base.tool.util.Util;
+import com.dber.util.Util;
 
 /**
  * <li>文件名称: FastJsonArgumentResolver.java</li>

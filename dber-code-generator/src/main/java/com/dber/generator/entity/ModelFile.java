@@ -2,7 +2,7 @@ package com.dber.generator.entity;
 
 import java.io.File;
 
-import com.dber.base.tool.util.Util;
+import com.dber.util.Util;
 
 /**
  * <li>文件名称: ModelFile.java</li>

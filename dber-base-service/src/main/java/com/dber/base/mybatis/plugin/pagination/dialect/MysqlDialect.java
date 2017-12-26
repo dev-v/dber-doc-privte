@@ -1,7 +1,7 @@
 package com.dber.base.mybatis.plugin.pagination.dialect;
 
 import com.dber.base.mybatis.plugin.pagination.page.Page;
-import com.dber.base.tool.util.Util;
+import com.dber.util.Util;
 
 /**
  * <li>文件名称: MysqlDialect.java</li>

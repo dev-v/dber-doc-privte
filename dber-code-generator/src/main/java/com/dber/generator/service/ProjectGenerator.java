@@ -7,11 +7,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dber.base.tool.util.Util;
 import com.dber.generator.entity.ModelFile;
 import com.dber.generator.entity.Project;
 import com.dber.generator.entity.Table;
 import com.dber.generator.file.FileUtil;
+import com.dber.util.Util;
 import com.dber.generator.file.AbstractFileNameFilter;
 import com.dber.generator.file.AllFileNameFileter;
 
