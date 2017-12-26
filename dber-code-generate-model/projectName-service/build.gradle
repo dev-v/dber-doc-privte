@@ -3,5 +3,4 @@ apply from: "$rootProject.projectDir/build.gradle"
 dependencies {
 	compile project(":dber-#{packageName}-api")
 	compile project(":dber:dber-base-service")
-	compile project(":dber:dber-base-util")
 }

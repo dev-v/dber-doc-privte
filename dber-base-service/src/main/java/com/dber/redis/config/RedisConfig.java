@@ -62,7 +62,7 @@ public class RedisConfig {
 	 * @return
 	 */
 	public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
-		return RedisCacheManager.create(connectionFactory);
+		return null;
 	}
 
 	/**

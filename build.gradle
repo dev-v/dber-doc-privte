@@ -10,10 +10,6 @@ buildscript {
 	    }
 	    
 	    maven {
-	        url 'http://192.168.120.3:8081/nexus/repository/dber/'
-	    }
-	    
-	    maven {
 	      url "https://plugins.gradle.org/m2/"
 	    }
 	    
@@ -33,10 +29,6 @@ allprojects {
 	    
 	    maven {
 	      url "http://repo.spring.io/milestone"
-	    }
-	    
-	    maven {
-	        url 'http://192.168.120.3:8081/nexus/repository/dber/'
 	    }
 	    
 	    maven {
