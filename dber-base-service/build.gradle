@@ -2,6 +2,6 @@ apply from: "$rootProject.projectDir/build.gradle"
 apply from: "$rootProject.projectDir/depends-service.gradle"
 
 dependencies {
-	compile project(":dber:dber-base-api")
-	compile project(":dber:dber-base-util")
+	compile project(":dber-base-api")
+	compile project(":dber-base-util")
 }
