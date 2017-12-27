@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.method.annotation.RequestParamMapMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -34,6 +36,8 @@ import com.dber.base.web.resolver.FastJsonArgumentResolver;
 @Configuration
 @Import({ ExceptionResolver.class, FastJsonViewResponseBodyAdvice.class })
 @EnableWebMvc
+@EnableRedisHttpSession
+@EnableRedisRepositories
 public class BaseWebConfig extends WebMvcConfigurerAdapter {
 
 	static {

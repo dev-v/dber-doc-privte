@@ -1,9 +1,8 @@
 package com.dber.generator.config;
 
-import java.io.IOException;
-
-import javax.sql.DataSource;
-
+import com.dber.base.mybatis.plugin.pagination.PaginationInterceptor;
+import com.dber.util.DBUtil;
+import com.dber.util.JdbcPoolConfig;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -17,9 +16,8 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.dber.base.mybatis.plugin.pagination.PaginationInterceptor;
-import com.dber.util.DBUtil;
-import com.dber.util.JdbcPoolConfig;
+import javax.sql.DataSource;
+import java.io.IOException;
 
 /**
  * <li>文件名称: ExampleService.java</li>
@@ -74,7 +72,7 @@ public class GeneratorServiceConfig {
 
 		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
 		sqlSessionFactoryBean.setMapperLocations(
-				resourceResolver.getResources("classpath*:/com/dber/generator/mapper/*-mapper.xml"));
+				resourceResolver.getResources("classpath*:/mapper/*-mapper.xml"));
 
 		Interceptor[] interceptors = { PaginationInterceptor.getInstance() };
 		sqlSessionFactoryBean.setPlugins(interceptors);

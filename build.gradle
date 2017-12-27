@@ -4,43 +4,20 @@ buildscript {
 	    maven {
 	        url 'http://maven.aliyun.com/nexus/content/groups/public'
 	    }
-	    
-	    maven {
-	      url "http://repo.spring.io/milestone"
-	    }
-	    
-	    maven {
-	      url "https://plugins.gradle.org/m2/"
-	    }
-	    
 	}
-    
+
 }
 
 allprojects {
-	
-    tasks.withType(AbstractCompile) each { it.options.encoding = encoding }
-    tasks.withType(GroovyCompile) each { it.groovyOptions.encoding = encoding }
 
     repositories {
 	    maven {
 	        url 'http://maven.aliyun.com/nexus/content/groups/public'
 	    }
-	    
-	    maven {
-	      url "http://repo.spring.io/milestone"
-	    }
-	    
-	    maven {
-	      url "https://plugins.gradle.org/m2/"
-	    }
-		
 	}
-    
-	apply plugin: 'groovy'
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
-	apply plugin: 'maven'
+	apply plugin: 'idea'
 
     dependencies {
 		compile 'org.projectlombok:lombok:1.16.8',
@@ -53,8 +30,6 @@ allprojects {
 					"org.springframework.boot:spring-boot-test:${springBootVersion}"
     }
 }
-
-apply from: "$rootProject.projectDir/publishing.gradle"
 
 task wrapper(type: Wrapper) {
     archiveBase = 'PROJECT'

@@ -1,9 +1,9 @@
 package com.dber.generator.entity;
 
+import lombok.Data;
+
 import java.io.File;
 import java.util.List;
-
-import lombok.Data;
 
 /**
  * <li>文件名称: Project.java</li>

@@ -1,11 +1,11 @@
 package com.dber.generator.file;
 
+import com.dber.util.Util;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
-
-import com.dber.util.Util;
 
 /**
  * <li>文件名称: FileUtil.java</li>

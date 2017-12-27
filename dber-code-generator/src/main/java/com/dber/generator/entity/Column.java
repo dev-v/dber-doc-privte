@@ -1,7 +1,6 @@
 package com.dber.generator.entity;
 
 import com.dber.util.Util;
-
 import lombok.Data;
 
 /**

@@ -1,19 +1,18 @@
 package com.dber.generator.service;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.dber.generator.entity.ModelFile;
 import com.dber.generator.entity.Project;
 import com.dber.generator.entity.Table;
-import com.dber.generator.file.FileUtil;
-import com.dber.util.Util;
 import com.dber.generator.file.AbstractFileNameFilter;
 import com.dber.generator.file.AllFileNameFileter;
+import com.dber.generator.file.FileUtil;
+import com.dber.util.Util;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <li>文件名称: ParserDatabase.java</li>

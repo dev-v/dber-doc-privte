@@ -1,12 +1,11 @@
 package com.dber.generator.mapper;
 
-import java.util.List;
-
+import com.dber.generator.entity.Column;
+import com.dber.generator.entity.Table;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.dber.generator.entity.Column;
-import com.dber.generator.entity.Table;
+import java.util.List;
 
 /**
  * <li>文件名称: TableMapper.java</li>

@@ -1,8 +1,8 @@
 package com.dber.generator.entity;
 
-import java.io.File;
-
 import com.dber.util.Util;
+
+import java.io.File;
 
 /**
  * <li>文件名称: ModelFile.java</li>

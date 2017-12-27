@@ -1,14 +1,13 @@
 package com.dber.generator.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.dber.generator.entity.Column;
 import com.dber.generator.entity.Project;
 import com.dber.generator.entity.Table;
 import com.dber.generator.mapper.TableMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <li>文件名称: ParseProject.java</li>

@@ -9,9 +9,9 @@ dependencies {
 			"org.springframework:spring-jdbc:${springVersion}",
 			"org.springframework:spring-context-support:${springVersion}",
 			"org.springframework.boot:spring-boot-starter:${springBootVersion}",
-			"org.springframework.boot:spring-boot-starter-redis:${springBootVersion}",
-			"org.springframework.session:spring-session-data-redis:${springBootVersion}",
+			"org.springframework.boot:spring-boot-starter-redis:1.4.7.RELEASE",
+			"org.springframework.session:spring-session-data-redis:1.3.1.RELEASE",
 			"org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}"
-			
+
 	compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
 }

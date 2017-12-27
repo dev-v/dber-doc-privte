@@ -1,2 +1,3 @@
 apply from: "$rootProject.projectDir/build.gradle"
+
 apply from: "$rootProject.projectDir/depends-service.gradle"
