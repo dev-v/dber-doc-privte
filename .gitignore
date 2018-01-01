@@ -30,3 +30,7 @@ bin
 repositories.gradle
 */build/*
 build/*
+
+.idea/**
+
+dber.iml
