@@ -74,7 +74,7 @@ public class Page<E> {
 	 * @see Page#Page(long, long)
 	 */
 	public Page(long currentPage) {
-		this(currentPage, 20);
+		this(currentPage, 10);
 	}
 
 	/**
