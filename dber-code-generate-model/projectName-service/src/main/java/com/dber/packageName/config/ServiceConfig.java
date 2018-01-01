@@ -74,7 +74,7 @@ public class #{projectJavaName}ServiceConfig {
 
 		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
 		#{packageName}SqlSessionFactoryBean
-				.setMapperLocations(resourceResolver.getResources("classpath*:/com/dber/#{packageName}/mapper/*_mapper.xml"));
+				.setMapperLocations(resourceResolver.getResources("classpath*:/mapper/*_mapper.xml"));
 
 		Interceptor[] interceptors = { PaginationInterceptor.getInstance() };
 		#{packageName}SqlSessionFactoryBean.setPlugins(interceptors);

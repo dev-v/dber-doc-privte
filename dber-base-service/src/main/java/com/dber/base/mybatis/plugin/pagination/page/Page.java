@@ -130,6 +130,10 @@ public class Page<E> {
 		this.condition = condition;
 	}
 
+	public long getTotal(){
+		return count;
+	}
+
 	public String getSort() {
 		return sort;
 	}
