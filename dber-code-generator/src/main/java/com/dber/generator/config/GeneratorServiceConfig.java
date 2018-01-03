@@ -1,8 +1,8 @@
 package com.dber.generator.config;
 
 import com.dber.base.mybatis.plugin.pagination.PaginationInterceptor;
-import com.dber.util.DBUtil;
-import com.dber.util.JdbcPoolConfig;
+import com.dber.base.util.DBUtil;
+import com.dber.base.util.JdbcPoolConfig;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;

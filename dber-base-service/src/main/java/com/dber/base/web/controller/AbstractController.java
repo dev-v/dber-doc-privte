@@ -5,12 +5,13 @@ import java.util.Collection;
 import javax.annotation.PostConstruct;
 
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dber.base.mybatis.plugin.pagination.page.Page;
 import com.dber.base.web.vo.Response;
-import com.dber.exception.system.NotFoundException;
-import com.dber.exception.system.NotLoginException;
+import com.dber.base.exception.system.NotFoundException;
+import com.dber.base.exception.system.NotLoginException;
 import com.dber.base.service.IService;
 
 /**
@@ -38,7 +39,7 @@ public abstract class AbstractController<E> implements ILoginService {
     }
 
     @RequestMapping("/insert")
-    public Response<E> insert(E e) {
+    public Response<E> insert(@RequestBody E e) {
         service.insert(e);
         return Response.newSuccessResponse(e);
     }
@@ -52,7 +53,7 @@ public abstract class AbstractController<E> implements ILoginService {
      * @return 修改成功行数
      */
     @RequestMapping("/update")
-    Response<Integer> update(E e) {
+    Response<Integer> update(@RequestBody E e) {
         return Response.newSuccessResponse(service.update(e));
     }
 
@@ -67,7 +68,8 @@ public abstract class AbstractController<E> implements ILoginService {
      * @return
      */
     @RequestMapping("/save")
-    Response<E> save(E e) {
+    Response<E> save(
+            @RequestBody E e) {
         service.save(e);
         return Response.newSuccessResponse(e);
     }
@@ -135,12 +137,12 @@ public abstract class AbstractController<E> implements ILoginService {
 
     /**
      * 不带分页查询
-     *
+     *xxxxxxxxxx
      * @param data
      * @return
      */
     @RequestMapping("/query")
-    Response<Collection<E>> queryWithoutPage(E data) {
+    Response<Collection<E>> queryWithoutPage(@RequestBody E data) {
         return Response.newSuccessResponse(service.queryWithoutPage(data));
     }
 
@@ -154,7 +156,7 @@ public abstract class AbstractController<E> implements ILoginService {
      * @return
      */
     @RequestMapping("/ids")
-    public Response<long[]> getIds(E e) {
+    public Response<long[]> getIds(@RequestBody E e) {
         return Response.newSuccessResponse(service.getIds(e));
     }
 

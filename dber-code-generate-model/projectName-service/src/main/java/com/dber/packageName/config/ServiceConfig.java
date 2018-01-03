@@ -18,8 +18,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.dber.base.mybatis.plugin.pagination.PaginationInterceptor;
-import com.dber.util.DBUtil;
-import com.dber.util.JdbcPoolConfig;
+import com.dber.base.util.DBUtil;
+import com.dber.base.util.JdbcPoolConfig;
 
 /**
  * <li>文件名称: #{projectJavaName}Service.java</li>

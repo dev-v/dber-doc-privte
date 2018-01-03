@@ -1,6 +1,6 @@
 package com.dber.generator.entity;
 
-import com.dber.util.Util;
+import com.dber.base.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,191 +10,191 @@ import java.util.List;
  * <li>修改记录: ...</li>
  * <li>内容摘要: ...</li>
  * <li>其他说明: ...</li>
- * 
+ *
+ * @author dev-v
  * @version 1.0
  * @since 2017年12月23日
- * @author dev-v
  */
 public class Table {
-	String tableName;
+    String tableName;
 
-	String tableComment;
+    String tableComment;
 
-	Column primaryColumn;
+    Column primaryColumn;
 
-	List<Column> indexColumns = new ArrayList<>();
+    List<Column> indexColumns = new ArrayList<>();
 
-	List<Column> otherColumns = new ArrayList<>();
+    List<Column> otherColumns = new ArrayList<>();
 
-	List<Column> columns;
+    List<Column> columns;
 
-	StringBuilder javaFields = new StringBuilder("\r\n");
+    StringBuilder javaFields = new StringBuilder("\r\n");
 
-	StringBuilder insertList;
+    StringBuilder insertList;
 
-	StringBuilder updateSet;
+    StringBuilder updateSet;
 
-	StringBuilder saveOnDuplicateSet;
+    StringBuilder saveOnDuplicateSet;
 
-	StringBuilder queryList = new StringBuilder();
+    StringBuilder queryList = new StringBuilder();
 
-	StringBuilder where = new StringBuilder();
+    StringBuilder where = new StringBuilder();
 
-	public void setColumns(List<Column> columns) {
-		this.columns = columns;
-		for (Column column : columns) {
-			if (column.isPrimaryKey()) {
-				this.setPrimaryColumn(column);
-			} else if (column.isIndex()) {
-				this.indexColumns.add(column);
-			} else {
-				this.otherColumns.add(column);
-			}
+    public void setColumns(List<Column> columns) {
+        this.columns = columns;
+        for (Column column : columns) {
+            if (column.isPrimaryKey()) {
+                this.setPrimaryColumn(column);
+            } else if (column.isIndex()) {
+                this.indexColumns.add(column);
+            } else {
+                this.otherColumns.add(column);
+            }
 
-			if (column.getCharacterMaximumLength() == null || column.getCharacterMaximumLength() < 51) {
-				queryList.append(column.getColumnName()).append(',');
-			}
+            if (column.getCharacterMaximumLength() == null || column.getCharacterMaximumLength() < 51) {
+                queryList.append(column.getColumnName()).append(',');
+            }
 
-			setJavaFields(column);
-		}
-		queryList.setLength(queryList.length() - 1);
-		setInsertList();
-		setUpdateSet();
-		setWhere();
-	}
+            setJavaFields(column);
+        }
+        queryList.setLength(queryList.length() - 1);
+        setInsertList();
+        setUpdateSet();
+        setWhere();
+    }
 
-	private void setWhere() {
-		try {
-			for (Column column : getAllColumn()) {
-				where.append("			<if test=\"").append(column.getJavaName())
-						.append(" != null\">\r\n				AND ").append(column.getColumnName()).append("=#{")
-						.append(column.getJavaName()).append("}\r\n			</if>\r\n");
-			}
-		} catch (Exception e) {
-			System.out.println(this.getTableName());
-		}
-	}
+    private void setWhere() {
+        try {
+            for (Column column : getAllColumn()) {
+                where.append("			<if test=\"").append(column.getJavaName())
+                        .append(" != null\">\r\n				AND ").append(column.getColumnName()).append("=#{")
+                        .append(column.getJavaName()).append("}\r\n			</if>\r\n");
+            }
+        } catch (Exception e) {
+            System.out.println(this.getTableName());
+        }
+    }
 
-	private List<Column> getAllColumn() {
-		List<Column> columns = new ArrayList<>();
-		columns.add(primaryColumn);
-		columns.addAll(indexColumns);
-		columns.addAll(otherColumns);
-		return columns;
-	}
+    private List<Column> getAllColumn() {
+        List<Column> columns = new ArrayList<>();
+        columns.add(primaryColumn);
+        columns.addAll(indexColumns);
+        columns.addAll(otherColumns);
+        return columns;
+    }
 
-	/**
-	 * <pre>
-	 * </pre>
-	 */
-	private void setUpdateSet() {
-		updateSet = new StringBuilder();
-		saveOnDuplicateSet = new StringBuilder();
-		for (Column column : getNoPrimaryColumn()) {
-			if (column.isAutoGenerator()) {
-				continue;
-			}
-			updateSet.append("			<if test=\"").append(column.getJavaName())
-					.append(" != null \">\r\n				").append(column.getColumnName()).append("=#{")
-					.append(column.getJavaName()).append("},\r\n			</if>\r\n");
+    /**
+     * <pre>
+     * </pre>
+     */
+    private void setUpdateSet() {
+        updateSet = new StringBuilder();
+        saveOnDuplicateSet = new StringBuilder();
+        for (Column column : getNoPrimaryColumn()) {
+            if (column.isAutoGenerator()) {
+                continue;
+            }
+            updateSet.append("			<if test=\"").append(column.getJavaName())
+                    .append(" != null \">\r\n				").append(column.getColumnName()).append("=#{")
+                    .append(column.getJavaName()).append("},\r\n			</if>\r\n");
 
-			saveOnDuplicateSet.append("			<if test=\"").append(column.getJavaName())
-					.append(" != null \">\r\n				").append(column.getColumnName()).append("=values(")
-					.append(column.getColumnName()).append("),\r\n			</if>\r\n");
-		}
-	}
+            saveOnDuplicateSet.append("			<if test=\"").append(column.getJavaName())
+                    .append(" != null \">\r\n				").append(column.getColumnName()).append("=values(")
+                    .append(column.getColumnName()).append("),\r\n			</if>\r\n");
+        }
+    }
 
-	public String getSaveOnDuplicateSet() {
-		return saveOnDuplicateSet.toString();
-	}
+    public String getSaveOnDuplicateSet() {
+        return saveOnDuplicateSet.toString();
+    }
 
-	/**
-	 * <pre>
-	 * <!-- 不包含主键和数据库类型为TIMESTAMP（由数据库自动管理）的列 需要使用if判断null -->
-	 * </pre>
-	 */
-	private void setInsertList() {
-		StringBuilder part1 = new StringBuilder("<trim suffixOverrides=\",\">\r\n");
-		StringBuilder part2 = new StringBuilder("<trim suffixOverrides=\",\">\r\n");
-		for (Column column : getNoPrimaryColumn()) {
-			if (column.isAutoGenerator()) {
-				continue;
-			}
-			part1.append("			<if test=\"").append(column.getJavaName()).append("!=null\">\r\n				")
-					.append(column.getColumnName()).append("=#{").append(column.getJavaName())
-					.append("},\r\n			</if>\r\n");
-			part2.append("			<if test=\"").append(column.getJavaName()).append("!=null\">\r\n				#{")
-					.append(column.getJavaName()).append("},\r\n			</if>\r\n");
-		}
-		part1.append("		</trim>\r\n		) values (\r\n		");
-		part2.append("		</trim>\r\n");
+    /**
+     * <pre>
+     * <!-- 不包含主键和数据库类型为TIMESTAMP（由数据库自动管理）的列 需要使用if判断null -->
+     * </pre>
+     */
+    private void setInsertList() {
+        StringBuilder part1 = new StringBuilder("<trim suffixOverrides=\",\">\r\n");
+        StringBuilder part2 = new StringBuilder("<trim suffixOverrides=\",\">\r\n");
+        for (Column column : getAllColumn()) {
+            if ((!column.isAutoGenerator()) || column.isPrimaryKey()) {
+                part1.append("			<if test=\"").append(column.getJavaName()).append("!=null\">\r\n				")
+                        .append(column.getColumnName())
+                        .append(",\r\n			</if>\r\n");
 
-		insertList = new StringBuilder(part1).append(part2);
-	}
+                part2.append("			<if test=\"").append(column.getJavaName()).append("!=null\">\r\n				#{")
+                        .append(column.getJavaName()).append("},\r\n			</if>\r\n");
+            }
+        }
+        part1.append("		</trim>\r\n		) values (\r\n		");
+        part2.append("		</trim>\r\n");
 
-	private void setJavaFields(Column column) {
-		javaFields.append("	/**\r\n" + "	 * ").append(column.getColumnComment()).append("\r\n	 */\r\n")
-				.append("	private ").append(column.getDataType().getJavaType()).append(" ")
-				.append(column.getJavaName()).append(";\r\n\r\n");
-	}
+        insertList = new StringBuilder(part1).append(part2);
+    }
 
-	public String getWhere() {
-		return where.toString();
-	}
+    private void setJavaFields(Column column) {
+        javaFields.append("	/**\r\n" + "	 * ").append(column.getColumnComment()).append("\r\n	 */\r\n")
+                .append("	private ").append(column.getDataType().getJavaType()).append(" ")
+                .append(column.getJavaName()).append(";\r\n\r\n");
+    }
 
-	public String getQueryList() {
-		return queryList.toString();
-	}
+    public String getWhere() {
+        return where.toString();
+    }
 
-	public String getJavaFields() {
-		return javaFields.toString();
-	}
+    public String getQueryList() {
+        return queryList.toString();
+    }
 
-	public String getUpdateSet() {
-		return updateSet.toString();
-	}
+    public String getJavaFields() {
+        return javaFields.toString();
+    }
 
-	public List<Column> getNoPrimaryColumn() {
-		List<Column> columns = new ArrayList<>(indexColumns);
-		columns.addAll(otherColumns);
-		return columns;
-	}
+    public String getUpdateSet() {
+        return updateSet.toString();
+    }
 
-	public String getInsertList() {
-		return insertList.toString();
-	}
+    public List<Column> getNoPrimaryColumn() {
+        List<Column> columns = new ArrayList<>(indexColumns);
+        columns.addAll(otherColumns);
+        return columns;
+    }
 
-	public List<Column> getColumns() {
-		return columns;
-	}
+    public String getInsertList() {
+        return insertList.toString();
+    }
 
-	public String getJavaName() {
-		String string = Util.toJavaStyle(tableName);
-		return Character.toUpperCase(string.charAt(0)) + string.substring(1);
-	}
+    public List<Column> getColumns() {
+        return columns;
+    }
 
-	public String getTableName() {
-		return tableName;
-	}
+    public String getJavaName() {
+        String string = Util.toJavaStyle(tableName);
+        return Character.toUpperCase(string.charAt(0)) + string.substring(1);
+    }
 
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
-	}
+    public String getTableName() {
+        return tableName;
+    }
 
-	public String getTableComment() {
-		return tableComment;
-	}
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
 
-	public void setTableComment(String tableComment) {
-		this.tableComment = tableComment;
-	}
+    public String getTableComment() {
+        return tableComment;
+    }
 
-	public Column getPrimaryColumn() {
-		return primaryColumn;
-	}
+    public void setTableComment(String tableComment) {
+        this.tableComment = tableComment;
+    }
 
-	public void setPrimaryColumn(Column primaryColumn) {
-		this.primaryColumn = primaryColumn;
-	}
+    public Column getPrimaryColumn() {
+        return primaryColumn;
+    }
+
+    public void setPrimaryColumn(Column primaryColumn) {
+        this.primaryColumn = primaryColumn;
+    }
 
 }

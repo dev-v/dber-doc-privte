@@ -1,6 +1,6 @@
 package com.dber.base.web.controller;
 
-import com.dber.exception.system.NotLoginException;
+import com.dber.base.exception.system.NotLoginException;
 
 /**
  * <li>文件名称: ILoginCheckService.java</li>
