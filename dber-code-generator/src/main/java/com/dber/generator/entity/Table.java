@@ -51,7 +51,7 @@ public class Table {
                 this.otherColumns.add(column);
             }
 
-            if (column.getCharacterMaximumLength() == null || column.getCharacterMaximumLength() < 51) {
+            if (column.getCharacterMaximumLength() == null || column.getCharacterMaximumLength() < 101) {
                 queryList.append(column.getColumnName()).append(',');
             }
 
