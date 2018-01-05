@@ -39,7 +39,7 @@ public abstract class AbstractController<E> implements ILoginService {
     }
 
     @RequestMapping("/insert")
-    public Response<E> insert(@RequestBody E e) {
+    public Response<E> insert(E e) {
         service.insert(e);
         return Response.newSuccessResponse(e);
     }
@@ -53,7 +53,7 @@ public abstract class AbstractController<E> implements ILoginService {
      * @return 修改成功行数
      */
     @RequestMapping("/update")
-    Response<Integer> update(@RequestBody E e) {
+    Response<Integer> update(E e) {
         return Response.newSuccessResponse(service.update(e));
     }
 
@@ -68,8 +68,7 @@ public abstract class AbstractController<E> implements ILoginService {
      * @return
      */
     @RequestMapping("/save")
-    Response<E> save(
-            @RequestBody E e) {
+    Response<E> save(E e) {
         service.save(e);
         return Response.newSuccessResponse(e);
     }
@@ -142,7 +141,7 @@ public abstract class AbstractController<E> implements ILoginService {
      * @return
      */
     @RequestMapping("/query")
-    Response<Collection<E>> queryWithoutPage(@RequestBody E data) {
+    Response<Collection<E>> queryWithoutPage(E data) {
         return Response.newSuccessResponse(service.queryWithoutPage(data));
     }
 
@@ -156,7 +155,7 @@ public abstract class AbstractController<E> implements ILoginService {
      * @return
      */
     @RequestMapping("/ids")
-    public Response<long[]> getIds(@RequestBody E e) {
+    public Response<long[]> getIds(E e) {
         return Response.newSuccessResponse(service.getIds(e));
     }
 

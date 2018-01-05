@@ -3,6 +3,8 @@ package com.dber.base.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.parser.ParserConfig;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -71,26 +73,31 @@ public class BaseWebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
-        converter.getFastJsonConfig().setSerializerFeatures(SerializerFeature.BrowserSecure,
-                SerializerFeature.WriteDateUseDateFormat);
+
+        FastJsonConfig config = converter.getFastJsonConfig();
+        config.setSerializerFeatures(SerializerFeature.BrowserSecure,
+                SerializerFeature.WriteDateUseDateFormat, SerializerFeature.PrettyFormat);
+//        config.setDateFormat(JSON.DEFFAULT_DATE_FORMAT);
+        config.setParserConfig(ParserConfig.global);
+
         List<MediaType> supportedMediaTypes = new ArrayList<>();
         supportedMediaTypes.add(MediaType.APPLICATION_JSON);
         supportedMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
-        supportedMediaTypes.add(MediaType.APPLICATION_ATOM_XML);
         supportedMediaTypes.add(MediaType.APPLICATION_FORM_URLENCODED);
-        supportedMediaTypes.add(MediaType.APPLICATION_OCTET_STREAM);
-        supportedMediaTypes.add(MediaType.APPLICATION_PDF);
-        supportedMediaTypes.add(MediaType.APPLICATION_RSS_XML);
-        supportedMediaTypes.add(MediaType.APPLICATION_XHTML_XML);
-        supportedMediaTypes.add(MediaType.APPLICATION_XML);
-        supportedMediaTypes.add(MediaType.IMAGE_GIF);
-        supportedMediaTypes.add(MediaType.IMAGE_JPEG);
-        supportedMediaTypes.add(MediaType.IMAGE_PNG);
-        supportedMediaTypes.add(MediaType.TEXT_EVENT_STREAM);
-        supportedMediaTypes.add(MediaType.TEXT_HTML);
-        supportedMediaTypes.add(MediaType.TEXT_MARKDOWN);
         supportedMediaTypes.add(MediaType.TEXT_PLAIN);
-        supportedMediaTypes.add(MediaType.TEXT_XML);
+//        supportedMediaTypes.add(MediaType.APPLICATION_ATOM_XML);
+//        supportedMediaTypes.add(MediaType.APPLICATION_OCTET_STREAM);
+//        supportedMediaTypes.add(MediaType.APPLICATION_PDF);
+//        supportedMediaTypes.add(MediaType.APPLICATION_RSS_XML);
+//        supportedMediaTypes.add(MediaType.APPLICATION_XHTML_XML);
+//        supportedMediaTypes.add(MediaType.APPLICATION_XML);
+//        supportedMediaTypes.add(MediaType.IMAGE_GIF);
+//        supportedMediaTypes.add(MediaType.IMAGE_JPEG);
+//        supportedMediaTypes.add(MediaType.IMAGE_PNG);
+//        supportedMediaTypes.add(MediaType.TEXT_EVENT_STREAM);
+//        supportedMediaTypes.add(MediaType.TEXT_HTML);
+//        supportedMediaTypes.add(MediaType.TEXT_MARKDOWN);
+//        supportedMediaTypes.add(MediaType.TEXT_XML);
         converter.setSupportedMediaTypes(supportedMediaTypes);
         return converter;
     }

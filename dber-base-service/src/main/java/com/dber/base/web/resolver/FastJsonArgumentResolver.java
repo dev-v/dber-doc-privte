@@ -28,7 +28,7 @@ public class FastJsonArgumentResolver implements HandlerMethodArgumentResolver {
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
-		return Util.isPremitive(parameter.getParameterType());
+		return !Util.isPremitive(parameter.getParameterType());
 	}
 
 	/**
