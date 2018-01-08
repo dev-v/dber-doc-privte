@@ -2,6 +2,9 @@ rootProject.name = 'dber'
 
 include 'dber-base-api'
 
-include ':dber-base-service'
+include 'dber-base-service'
 
-include ':dber-code-generator'
+include 'dber-code-generator'
+
+include 'fastjson'
+
