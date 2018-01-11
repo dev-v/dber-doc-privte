@@ -1,6 +1,6 @@
 package com.dber.generator.service;
 
-import com.dber.generator.config.GeneratorServiceConfig;
+import com.dber.generator.config.ProjectGeneratorServiceConfig;
 import com.dber.generator.entity.Project;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@ContextConfiguration(classes = GeneratorServiceConfig.class, initializers = ConfigFileApplicationContextInitializer.class)
+@ContextConfiguration(classes = ProjectGeneratorServiceConfig.class, initializers = ConfigFileApplicationContextInitializer.class)
 @FixMethodOrder(MethodSorters.JVM)
 public class ProjectGeneratorTest {
 

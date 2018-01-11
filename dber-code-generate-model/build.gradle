@@ -20,9 +20,13 @@ allprojects {
 	apply plugin: 'idea'
 
     dependencies {
+		compile 'org.projectlombok:lombok:1.16.8',
+				'commons-logging:commons-logging:1.2',
+				'org.apache.commons:commons-lang3:3.7'
+
 		testCompile 'junit:junit:4.12',
-					"org.springframework:spring-test:${springVersion}",
-					"org.springframework.boot:spring-boot-test:${springBootVersion}"
+				"org.springframework:spring-test:${springVersion}",
+				"org.springframework.boot:spring-boot-test:${springBootVersion}"
     }
 }
 

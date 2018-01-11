@@ -6,8 +6,6 @@ include ':dber:dber-base-api'
 
 include ':dber:dber-base-service'
 
-include ':dber:fastjson'
-
 include '#{projectName}-api'
 
 include '#{projectName}-service'

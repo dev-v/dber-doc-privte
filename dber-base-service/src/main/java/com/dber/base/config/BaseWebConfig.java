@@ -5,15 +5,18 @@ import java.util.List;
 
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.method.annotation.RequestParamMapMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -45,8 +48,9 @@ import com.dber.base.web.resolver.FastJsonArgumentResolver;
 @EnableWebMvc
 @EnableRedisHttpSession
 @EnableRedisRepositories
-@Import({ExceptionResolver.class, FastJsonViewResponseBodyAdvice.class})
+@Import({ExceptionResolver.class, FastJsonViewResponseBodyAdvice.class, JCaptchaConfig.class})
 @EnableConfigurationProperties({SpringConfig.class})
+@EnableAutoConfiguration
 public class BaseWebConfig extends WebMvcConfigurerAdapter {
 
     static {
@@ -62,7 +66,14 @@ public class BaseWebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:8000");
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:8000",
+                        "http://localhost:8001",
+                        "http://localhost:8002")
+                .allowCredentials(true)
+                .allowedHeaders("*")
+                .exposedHeaders(HttpHeaders.SET_COOKIE)
+                .maxAge(1800);
     }
 
     @Override

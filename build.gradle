@@ -4,8 +4,10 @@ buildscript {
         maven {
             url 'http://maven.aliyun.com/nexus/content/groups/public'
         }
+        maven {
+            url 'http://maven.jahia.org/maven2'
+        }
     }
-
 }
 
 allprojects {
@@ -13,6 +15,9 @@ allprojects {
     repositories {
         maven {
             url 'http://maven.aliyun.com/nexus/content/groups/public'
+        }
+        maven {
+            url 'http://maven.jahia.org/maven2'
         }
     }
     apply plugin: 'java'
@@ -24,7 +29,8 @@ allprojects {
                 'commons-logging:commons-logging:1.2',
                 'org.apache.commons:commons-lang3:3.7'
 
-        compile project(':dber:fastjson')
+        compile project(':fastjson')
+        compile project(':dber-tool')
 
         testCompile 'junit:junit:4.12',
                 "org.springframework:spring-test:${springVersion}",

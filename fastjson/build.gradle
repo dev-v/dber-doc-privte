@@ -1,5 +1,0 @@
-apply from: "$rootProject.projectDir/build.gradle"
-apply from: "/depends-service.gradle"
-
-group 'com.alibaba'
-version '1.2.44'

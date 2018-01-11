@@ -30,7 +30,7 @@ public enum DataType {
     public String javaType;
     public String dataBaseType;
 
-    private DataType(String javaType, String dataBaseType) {
+    DataType(String javaType, String dataBaseType) {
         this.javaType = javaType;
         this.dataBaseType = dataBaseType;
     }

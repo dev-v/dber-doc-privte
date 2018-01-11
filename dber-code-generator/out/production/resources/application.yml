@@ -18,7 +18,6 @@ spring:
     pool:
       min-idle: 2
 
-
 dber.generator:
   service:
     mysql:
@@ -31,5 +30,13 @@ dber.generator:
       initialSize: 1
       maxActive: 2
       minIdle: 1
-      
-      
+    plat:
+      host: 192.168.120.3
+      port: 3306
+      database: dber_plat
+      username: root
+      password: 123456
+      parameters: characterEncoding=utf8&rewriteBatchedStatements=true&autoReconnect=true
+      initialSize: 1
+      maxActive: 2
+      minIdle: 1

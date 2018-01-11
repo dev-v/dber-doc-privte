@@ -3,15 +3,18 @@ package com.dber.base.web.controller;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
+import com.dber.base.web.login.ILoginService;
+import com.dber.base.web.vo.Account;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dber.base.mybatis.plugin.pagination.page.Page;
 import com.dber.base.web.vo.Response;
 import com.dber.base.exception.system.NotFoundException;
-import com.dber.base.exception.system.NotLoginException;
+import com.dber.base.exception.system.login.NotLoginException;
 import com.dber.base.service.IService;
 
 /**
@@ -29,13 +32,15 @@ import com.dber.base.service.IService;
  * @version 1.0
  * @since 2017年12月21日
  */
-public abstract class AbstractController<E> implements ILoginService {
+public abstract class AbstractController<E> {
+
+    @Autowired
+    private ILoginService loginService;
 
     IService<E> service;
 
-    @Override
-    public Account getAccount() throws NotLoginException {
-        throw new NotLoginException();
+    public Account getAccount(HttpSession session) throws NotLoginException {
+        return loginService.getAccount(session);
     }
 
     @RequestMapping("/insert")
@@ -136,7 +141,8 @@ public abstract class AbstractController<E> implements ILoginService {
 
     /**
      * 不带分页查询
-     *xxxxxxxxxx
+     * xxxxxxxxxx
+     *
      * @param data
      * @return
      */

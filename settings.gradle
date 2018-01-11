@@ -6,5 +6,6 @@ include 'dber-base-service'
 
 include 'dber-code-generator'
 
-include 'fastjson'
+includeFlat 'fastjson'
 
+includeFlat 'dber-tool'
