@@ -1,11 +1,8 @@
 package com.dber.base.web.login;
 
-import com.dber.base.exception.system.login.NotLoginException;
-import com.dber.base.util.CipherUtil;
+import com.dber.util.CipherUtil;
 import com.dber.base.web.vo.Account;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpSession;
 
 /**
  * <li>修改记录: ...</li>

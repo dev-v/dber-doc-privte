@@ -4,11 +4,12 @@ import java.io.IOException;
 
 import javax.sql.DataSource;
 
+import com.dber.base.config.SystemConfig;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,7 +20,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.dber.base.mybatis.plugin.pagination.PaginationInterceptor;
 import com.dber.base.util.DBUtil;
-import com.dber.base.util.JdbcPoolConfig;
 
 /**
  * <li>文件名称: #{projectJavaName}Service.java</li>
@@ -32,21 +32,18 @@ import com.dber.base.util.JdbcPoolConfig;
  * @author dev-v
  */
 @Configuration
-@EnableConfigurationProperties
+@EnableConfigurationProperties({SystemConfig.class})
 @EnableAutoConfiguration
 @EnableTransactionManagement
 @ComponentScan("com.dber.#{packageName}.service")
 @MapperScan(basePackages = { "com.dber.#{packageName}.mapper" })
 public class #{projectJavaName}ServiceConfig {
-	@Bean
-	@ConfigurationProperties(prefix = "dber.#{packageName}.service.mysql")
-	public JdbcPoolConfig #{packageName}JdbcPoolConfig() {
-		return new JdbcPoolConfig();
-	}
+	@Autowired
+	private SystemConfig systemConfig;
 
 	@Bean
 	public DataSource #{packageName}DataSource() {
-		DataSource #{packageName}DataSource = DBUtil.dataSource(#{packageName}JdbcPoolConfig());
+		DataSource #{packageName}DataSource = DBUtil.dataSource(systemConfig.getService().getDatabase());
 		return #{packageName}DataSource;
 	}
 

@@ -16,9 +16,11 @@ spring:
     pool:
       min-idle: 2
 
-dber.#{packageName}:
+
+dber:
   service:
-    mysql:
+    name: #{packageName}
+    database:
       host: 192.168.120.3
       port: 3306
       database: dber_#{packageName}
@@ -28,5 +30,5 @@ dber.#{packageName}:
       initialSize: 1
       maxActive: 2
       minIdle: 1
-      
-      
+  web:
+    baseUrl: http://127.0.0.1:8081/

@@ -1,6 +1,7 @@
 package com.dber.base.util;
 
-import org.junit.Test; 
+import com.dber.util.CipherUtil;
+import org.junit.Test;
 import org.junit.Before; 
 import org.junit.After; 
 

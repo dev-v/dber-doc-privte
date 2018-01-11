@@ -1,5 +1,9 @@
 rootProject.name = '#{projectName}'
 
+includeFlat 'fastjson'
+
+includeFlat 'dber-tool'
+
 includeFlat 'dber'
 
 include ':dber:dber-base-api'
