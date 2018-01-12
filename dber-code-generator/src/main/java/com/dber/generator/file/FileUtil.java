@@ -1,6 +1,6 @@
 package com.dber.generator.file;
 
-import com.dber.base.util.Util;
+import com.dber.util.Util;
 
 import java.io.File;
 import java.util.ArrayList;

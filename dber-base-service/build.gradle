@@ -12,6 +12,8 @@ dependencies {
         exclude group: 'javax.servlet'
     }
 
+    compile project(':dber-base-api')
+
     compile "org.springframework:spring-tx:${springVersion}",
             "org.springframework:spring-jdbc:${springVersion}",
             "org.springframework:spring-context-support:${springVersion}",

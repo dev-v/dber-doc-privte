@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 
-import com.dber.#{packageName}.config.#{projectJavaName}AppConfig;
+import com.dber.#{packageName}.config.#{projectJavaName}WebConfig.class;
 
 /**
  * <li>文件名称: Application.java</li>
@@ -20,6 +20,6 @@ import com.dber.#{packageName}.config.#{projectJavaName}AppConfig;
 @SpringBootApplication
 public class Application {
 	public static void main(String[] args) {
-		SpringApplication.run(#{projectJavaName}AppConfig.class, args);
+		SpringApplication.run(#{projectJavaName}WebConfig.class, args);
 	}
 }

@@ -1,6 +1,6 @@
 package com.dber.generator.entity;
 
-import com.dber.base.util.Util;
+import com.dber.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;

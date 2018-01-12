@@ -1,6 +1,6 @@
 package com.dber.generator.service;
 
-import com.dber.base.util.Util;
+import com.dber.util.Util;
 import com.dber.generator.entity.Dict;
 import com.dber.generator.entity.DictCategory;
 import com.dber.generator.file.FileUtil;

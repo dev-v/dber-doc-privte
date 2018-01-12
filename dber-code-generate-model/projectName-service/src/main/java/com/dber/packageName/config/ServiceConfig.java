@@ -4,7 +4,8 @@ import java.io.IOException;
 
 import javax.sql.DataSource;
 
-import com.dber.base.config.SystemConfig;
+import com.dber.config.SystemConfig;
+import com.dber.cache.config.CacheConfig;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -35,6 +36,7 @@ import com.dber.base.util.DBUtil;
 @EnableConfigurationProperties({SystemConfig.class})
 @EnableAutoConfiguration
 @EnableTransactionManagement
+@Import({CacheConfig.class})
 @ComponentScan("com.dber.#{packageName}.service")
 @MapperScan(basePackages = { "com.dber.#{packageName}.mapper" })
 public class #{projectJavaName}ServiceConfig {

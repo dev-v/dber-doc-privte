@@ -1,5 +1,0 @@
-apply from: "$rootProject.projectDir/build.gradle"
-
-dependencies {
-    compile 'org.apache.httpcomponents:httpclient-cache:4.5.3'
-}
