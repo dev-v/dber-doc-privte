@@ -1,7 +1,0 @@
-redis
-mysql
-rabbitmq
-fast dfs+thumbnailator（或im4java）
-nginx
-zk
-docker（不一定使用）
